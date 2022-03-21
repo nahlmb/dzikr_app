@@ -113,5 +113,5 @@ class ThemeConfig {
   static Color sweetGreen = const Color(0xff0FA971);
   static Color sweetOrange = const Color(0xffECA61E);
   static Color sweetPurple = const Color(0xff4355F1);
-  static Color sweetYellow = const Color(0xffD42479);
+  static Color sweetRed = const Color(0xffD42479);
 }

@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class ThemeConfig {
+  static const lightColorScheme = ColorScheme.light(
+    brightness: Brightness.light,
+    primary: Color(0xFF006D3A),
+    onPrimary: Color(0xFFFFFFFF),
+    primaryContainer: Color(0xFF72FDA8),
+    onPrimaryContainer: Color(0xFF00210D),
+    secondary: Color(0xFF006C46),
+    onSecondary: Color(0xFFFFFFFF),
+    secondaryContainer: Color(0xFF8DF8C2),
+    onSecondaryContainer: Color(0xFF002112),
+    tertiary: Color(0xFF006D41),
+    onTertiary: Color(0xFFFFFFFF),
+    tertiaryContainer: Color(0xFF92F7BC),
+    onTertiaryContainer: Color(0xFF002110),
+    error: Color(0xFFB3261E),
+    errorContainer: Color(0xFFF9DEDC),
+    onError: Color(0xFFFFFFFF),
+    onErrorContainer: Color(0xFF410E0B),
+    background: Color(0xFFFBFDFD),
+    onBackground: Color(0xFF191C1D),
+    surface: Color(0xFFFBFDFD),
+    onSurface: Color(0xFF191C1D),
+    surfaceVariant: Color(0xFFE7E0EC),
+    onSurfaceVariant: Color(0xFF49454F),
+    outline: Color(0xFF79747E),
+    onInverseSurface: Color(0xFFEFF1F1),
+    inverseSurface: Color(0xFF2D3132),
+    inversePrimary: Color(0xFF51DF8D),
+    shadow: Color(0xFF000000),
+  );
+
+  static const darkColorScheme = ColorScheme.dark(
+    brightness: Brightness.dark,
+    primary: Color(0xFF51DF8D),
+    onPrimary: Color(0xFF00391B),
+    primaryContainer: Color(0xFF00522A),
+    onPrimaryContainer: Color(0xFF72FDA8),
+    secondary: Color(0xFF71DBA7),
+    onSecondary: Color(0xFF003822),
+    secondaryContainer: Color(0xFF005234),
+    onSecondaryContainer: Color(0xFF8DF8C2),
+    tertiary: Color(0xFF76DAA1),
+    onTertiary: Color(0xFF00391F),
+    tertiaryContainer: Color(0xFF00522F),
+    onTertiaryContainer: Color(0xFF92F7BC),
+    error: Color(0xFFF2B8B5),
+    errorContainer: Color(0xFF8C1D18),
+    onError: Color(0xFF601410),
+    onErrorContainer: Color(0xFFF9DEDC),
+    background: Color(0xFF191C1D),
+    onBackground: Color(0xFFE0E3E3),
+    surface: Color(0xFF191C1D),
+    onSurface: Color(0xFFE0E3E3),
+    surfaceVariant: Color(0xFF49454F),
+    onSurfaceVariant: Color(0xFFCAC4D0),
+    outline: Color(0xFF938F99),
+    onInverseSurface: Color(0xFF191C1D),
+    inverseSurface: Color(0xFFE0E3E3),
+    inversePrimary: Color(0xFF006D3A),
+    shadow: Color(0xFF000000),
+  );
+
+  static var textTheme = GoogleFonts.notoSerifTextTheme();
+}

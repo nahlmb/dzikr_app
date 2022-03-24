@@ -49,5 +49,10 @@ class SizeConfig {
 
   static BorderRadius radius = BorderRadius.circular(s16);
 
-  static const pagePadding = EdgeInsets.all(s14);
+  static const pagePadding = EdgeInsets.all(pagePaddingNum);
+  static const pageHorizontalPadding =
+      EdgeInsets.symmetric(horizontal: pagePaddingNum);
+  static const pageVerticalPadding =
+      EdgeInsets.symmetric(vertical: pagePaddingNum);
+  static const pagePaddingNum = s14;
 }

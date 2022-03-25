@@ -12,12 +12,12 @@ class PageStandartDividerWidget extends StatelessWidget {
     return Column(
       children: const [
         SizedBox(
-          height: SizeConfig.s22,
+          height: SizeConfig.pagePaddingDivider,
         ),
         MinusDividerWidget(
             left: SizeConfig.pagePaddingNum, right: SizeConfig.pagePaddingNum),
         SizedBox(
-          height: SizeConfig.s22,
+          height: SizeConfig.pagePaddingDivider,
         ),
       ],
     );

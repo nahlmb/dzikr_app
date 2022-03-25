@@ -6,6 +6,7 @@ class AppBarWidget {
   static getAppbar(BuildContext context, {String? title}) {
     return AppBar(
       toolbarHeight: 70,
+      iconTheme: IconThemeData(color: colorSchame(context).onBackground),
       title: title != null
           ? Text(
               title,

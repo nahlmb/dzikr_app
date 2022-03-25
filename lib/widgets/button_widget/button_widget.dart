@@ -37,11 +37,11 @@ class ButtonWidget extends StatelessWidget {
       child: Container(
         width: (isFull) ? double.infinity : null,
         padding: EdgeInsets.symmetric(
-            vertical: (isSmall) ? SizeConfig.s6 : SizeConfig.s8,
+            vertical: (isSmall) ? SizeConfig.s10 : SizeConfig.s16,
             horizontal: (isSmall)
                 ? (isSymetricPadding)
-                    ? SizeConfig.s6
-                    : SizeConfig.s8
+                    ? SizeConfig.s8
+                    : SizeConfig.s10
                 : SizeConfig.s18),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SizeConfig.s12),

@@ -55,4 +55,5 @@ class SizeConfig {
   static const pageVerticalPadding =
       EdgeInsets.symmetric(vertical: pagePaddingNum);
   static const pagePaddingNum = s14;
+  static const pagePaddingDivider = s22;
 }

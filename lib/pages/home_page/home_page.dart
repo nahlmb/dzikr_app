@@ -1,6 +1,7 @@
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/config/theme_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
+import 'package:dzikr_app/pages/prayer_page/prayer_page.dart';
 import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
 import 'package:dzikr_app/widgets/button_widget/button_widget.dart';
 import 'package:dzikr_app/widgets/minus_divider_widget/minus_divider_widget.dart';
@@ -21,7 +22,7 @@ class HomePage extends StatelessWidget {
           child: ListView(
             children: [
               const SizedBox(
-                height: SizeConfig.s22,
+                height: SizeConfig.pagePaddingDivider,
               ),
               Padding(
                 padding: SizeConfig.pageHorizontalPadding,
@@ -186,8 +187,12 @@ class HomePage extends StatelessWidget {
           ),
           Expanded(
               flex: 2,
-              child: getHeadlineIconItem(context,
-                  onPress: () {},
+              child: getHeadlineIconItem(context, onPress: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PrayerPage()));
+              },
                   icon: Icon(
                     Icons.schedule_rounded,
                     size: SizeConfig.s32,
@@ -234,9 +239,10 @@ class HomePage extends StatelessWidget {
                 height: SizeConfig.s12,
               ),
               ButtonWidget(
-                text: "continue read",
+                text: "Continue read",
                 onTap: () {},
                 isFull: true,
+                isSmall: true,
                 buttonTextStyle:
                     textTheme(context).bodyText1?.copyWith(color: Colors.white),
               )

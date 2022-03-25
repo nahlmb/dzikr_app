@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ThemeConfig {
   static var lightTheme = ThemeData(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       brightness: Brightness.light,
       colorScheme: ThemeConfig.lightColorScheme,
       scaffoldBackgroundColor: ThemeConfig.lightColorScheme.background,
@@ -20,6 +21,8 @@ class ThemeConfig {
           backgroundColor: ThemeConfig.lightColorScheme.background));
 
   static var darkTheme = ThemeData(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       colorScheme: ThemeConfig.darkColorScheme,
       scaffoldBackgroundColor: ThemeConfig.darkColorScheme.background,
       brightness: Brightness.dark,
@@ -35,7 +38,7 @@ class ThemeConfig {
 
   static var lightColorScheme = ColorScheme.light(
     brightness: Brightness.light,
-    primary: const Color(0xFF006D3A),
+    primary: const Color(0xff0FA971),
     onPrimary: const Color(0xFFFFFFFF),
     primaryContainer: const Color(0xFF72FDA8),
     onPrimaryContainer: const Color(0xFF00210D),
@@ -108,6 +111,8 @@ class ThemeConfig {
         .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
     headline6: GoogleFonts.notoSerif()
         .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+    bodyText2: GoogleFonts.workSans().copyWith(fontSize: 14),
+    bodyText1: GoogleFonts.workSans().copyWith(fontSize: 14),
   );
 
   static Color sweetGreen = const Color(0xff0FA971);

@@ -1,9 +1,12 @@
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/config/theme_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
+import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
 import 'package:dzikr_app/widgets/button_widget/button_widget.dart';
 import 'package:dzikr_app/widgets/minus_divider_widget/minus_divider_widget.dart';
+import 'package:dzikr_app/widgets/next_button_widget/next_button_widget.dart';
 import 'package:dzikr_app/widgets/opacity_pressed_widget/opacity_pressed_widget.dart';
+import 'package:dzikr_app/widgets/page_standart_divider_widget/page_standart_divider_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,32 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 70,
-          title: Column(
-            children: [
-              MediaQuery.of(context).platformBrightness == Brightness.dark
-                  ? Image.asset(
-                      'assets/images/im_dzikr_logo_white.png',
-                      height: 47,
-                    )
-                  : Image.asset(
-                      'assets/images/im_dzikr_logo.png',
-                      height: 47,
-                    ),
-              const SizedBox(
-                height: SizeConfig.s12,
-              )
-            ],
-          ),
-          flexibleSpace: Container(
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                          width: 1,
-                          color: Theme.of(context).colorScheme.surface)))),
-          elevation: 0,
-        ),
+        appBar: AppBarWidget.getAppbar(context),
         body: SafeArea(
           bottom: false,
           child: ListView(
@@ -45,113 +23,109 @@ class HomePage extends StatelessWidget {
               const SizedBox(
                 height: SizeConfig.s22,
               ),
-              const Padding(
+              Padding(
                 padding: SizeConfig.pageHorizontalPadding,
-                child: getPrayerCardSection(),
+                child: getPrayerCardSection(context),
               ),
-              const SizedBox(
-                height: SizeConfig.s22,
-              ),
-              const MinusDividerWidget(
-                  left: SizeConfig.s16, right: SizeConfig.s16),
-              const SizedBox(
-                height: SizeConfig.s22,
-              ),
+              const PageStandartDividerWidget(),
               Padding(
                 padding: SizeConfig.pageHorizontalPadding,
                 child: getMenuSection(context),
               ),
-              const SizedBox(
-                height: SizeConfig.s22,
-              ),
-              const MinusDividerWidget(
-                  left: SizeConfig.s16, right: SizeConfig.s16),
-              const SizedBox(
-                height: SizeConfig.s22,
-              ),
+              const PageStandartDividerWidget(),
               Padding(
                 padding: SizeConfig.pageHorizontalPadding,
                 child: getQuranSection(context),
               ),
-              const SizedBox(
-                height: SizeConfig.s22,
-              ),
-              const MinusDividerWidget(
-                  left: SizeConfig.s16, right: SizeConfig.s16),
-              const SizedBox(
-                height: SizeConfig.s22,
-              ),
-              Padding(
-                padding: SizeConfig.pageHorizontalPadding,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Dzikir & Doa",
-                      style: textTheme(context).headline3,
-                    ),
-                    const Text("Rekomendasi Dzikir dan Doa"),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: SizeConfig.s14,
-              ),
-              Container(
-                decoration: BoxDecoration(color: colorSchame(context).surface),
-                child: ListView(
-                  physics: const ClampingScrollPhysics(),
-                  padding: SizeConfig.pageHorizontalPadding,
-                  shrinkWrap: true,
-                  children: const [
-                    SizedBox(
-                      height: SizeConfig.s18,
-                    ),
-                    Text(
-                      "Dzikir Pagi",
-                      style: TextStyle(fontSize: SizeConfig.s16),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.s18,
-                    ),
-                    MinusDividerWidget(
-                        left: SizeConfig.pagePaddingNum,
-                        right: SizeConfig.pagePaddingNum),
-                    SizedBox(
-                      height: SizeConfig.s18,
-                    ),
-                    Text(
-                      "Dzikir Petang",
-                      style: TextStyle(fontSize: SizeConfig.s16),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.s18,
-                    ),
-                    MinusDividerWidget(
-                        left: SizeConfig.pagePaddingNum,
-                        right: SizeConfig.pagePaddingNum),
-                    SizedBox(
-                      height: SizeConfig.s18,
-                    ),
-                    Text(
-                      "Kumpulan Doa dalam Al Quran",
-                      style: TextStyle(fontSize: SizeConfig.s16),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.s18,
-                    ),
-                    MinusDividerWidget(
-                        left: SizeConfig.pagePaddingNum,
-                        right: SizeConfig.pagePaddingNum),
-                  ],
-                ),
-              ),
+              const PageStandartDividerWidget(),
+              getDzikrAndDuaSection(context),
               const SizedBox(
                 height: SizeConfig.s28,
               ),
             ],
           ),
         ));
+  }
+
+  Column getDzikrAndDuaSection(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: SizeConfig.pageHorizontalPadding,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Dzikir & Dua",
+                    style: textTheme(context).headline3,
+                  ),
+                  const Text("Dzikir and Dua recomendation"),
+                ],
+              ),
+              NextButtonWidget(
+                onPress: () {},
+              )
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: SizeConfig.s20,
+        ),
+        Container(
+          decoration: BoxDecoration(color: colorSchame(context).surface),
+          child: ListView(
+            physics: const ClampingScrollPhysics(),
+            padding: SizeConfig.pageHorizontalPadding,
+            shrinkWrap: true,
+            children: const [
+              SizedBox(
+                height: SizeConfig.s18,
+              ),
+              Text(
+                "Dzikir Pagi",
+                style: TextStyle(fontSize: SizeConfig.s16),
+              ),
+              SizedBox(
+                height: SizeConfig.s18,
+              ),
+              MinusDividerWidget(
+                  left: SizeConfig.pagePaddingNum,
+                  right: SizeConfig.pagePaddingNum),
+              SizedBox(
+                height: SizeConfig.s18,
+              ),
+              Text(
+                "Dzikir Petang",
+                style: TextStyle(fontSize: SizeConfig.s16),
+              ),
+              SizedBox(
+                height: SizeConfig.s18,
+              ),
+              MinusDividerWidget(
+                  left: SizeConfig.pagePaddingNum,
+                  right: SizeConfig.pagePaddingNum),
+              SizedBox(
+                height: SizeConfig.s18,
+              ),
+              Text(
+                "Kumpulan Doa dalam Al Quran",
+                style: TextStyle(fontSize: SizeConfig.s16),
+              ),
+              SizedBox(
+                height: SizeConfig.s18,
+              ),
+              MinusDividerWidget(
+                  left: SizeConfig.pagePaddingNum,
+                  right: SizeConfig.pagePaddingNum),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   Column getMenuSection(BuildContext context) {
@@ -165,6 +139,7 @@ class HomePage extends StatelessWidget {
           Expanded(
               flex: 2,
               child: getHeadlineIconItem(context,
+                  onPress: () {},
                   icon: Icon(
                     Icons.auto_stories_rounded,
                     size: SizeConfig.s32,
@@ -180,12 +155,13 @@ class HomePage extends StatelessWidget {
           Expanded(
               flex: 2,
               child: getHeadlineIconItem(context,
+                  onPress: () {},
                   icon: Icon(
                     Icons.auto_awesome_rounded,
                     size: SizeConfig.s32,
                     color: ThemeConfig.sweetOrange,
                   ),
-                  text: "Doa-Dzikir")),
+                  text: "Dua-Dzikir")),
           const Flexible(
             flex: 1,
             child: SizedBox(
@@ -195,12 +171,13 @@ class HomePage extends StatelessWidget {
           Expanded(
               flex: 2,
               child: getHeadlineIconItem(context,
+                  onPress: () {},
                   icon: Icon(
                     Icons.calendar_today_rounded,
                     size: SizeConfig.s32,
                     color: ThemeConfig.sweetPurple,
                   ),
-                  text: "Kalendar")),
+                  text: "Calendar")),
           const Flexible(
             flex: 1,
             child: SizedBox(
@@ -210,12 +187,13 @@ class HomePage extends StatelessWidget {
           Expanded(
               flex: 2,
               child: getHeadlineIconItem(context,
+                  onPress: () {},
                   icon: Icon(
                     Icons.schedule_rounded,
                     size: SizeConfig.s32,
                     color: ThemeConfig.sweetRed,
                   ),
-                  text: "Sholat")),
+                  text: "Prayer")),
           const SizedBox(
             width: SizeConfig.s4,
           ),
@@ -232,7 +210,7 @@ class HomePage extends StatelessWidget {
           "Al Quran",
           style: textTheme(context).headline3,
         ),
-        const Text("Sudahkah membaca Quran hari ini"),
+        const Text("Have you read quran today"),
         const SizedBox(
           height: SizeConfig.s18,
         ),
@@ -269,10 +247,49 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Widget getPrayerCardSection(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(SizeConfig.s20),
+      decoration: BoxDecoration(
+          color: const Color(0xffC9E8FF), borderRadius: SizeConfig.radius),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Dzhur",
+                  style: textTheme(context)
+                      .headline1
+                      ?.copyWith(color: Colors.black)),
+              Text("12:00",
+                  style: textTheme(context).headline1?.copyWith(
+                      fontSize: SizeConfig.s42,
+                      height: 1,
+                      color: Colors.black)),
+              const SizedBox(
+                height: SizeConfig.s4,
+              ),
+              Text(
+                '3 Minutes to Dzhur',
+                style:
+                    textTheme(context).bodyText1?.copyWith(color: Colors.black),
+              )
+            ],
+          ),
+          NextButtonWidget(
+            onPress: () {},
+            iconColor: Colors.black,
+          )
+        ],
+      ),
+    );
+  }
+
   Widget getHeadlineIconItem(BuildContext context,
-      {required Icon icon, required String text}) {
+      {required Icon icon, required String text, required Function() onPress}) {
     return OpacityPressedWidget(
-      onPress: () {},
+      onPress: onPress,
       child: Column(
         children: [
           AspectRatio(
@@ -295,39 +312,6 @@ class HomePage extends StatelessWidget {
             style: textTheme(context)
                 .bodyText1
                 ?.copyWith(fontSize: SizeConfig.s12),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class getPrayerCardSection extends StatelessWidget {
-  const getPrayerCardSection({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(SizeConfig.s20),
-      decoration: BoxDecoration(
-          color: const Color(0xffC9E8FF), borderRadius: SizeConfig.radius),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Dzhur",
-              style:
-                  textTheme(context).headline1?.copyWith(color: Colors.black)),
-          Text("12:00",
-              style: textTheme(context).headline1?.copyWith(
-                  fontSize: SizeConfig.s42, height: 1, color: Colors.black)),
-          const SizedBox(
-            height: SizeConfig.s4,
-          ),
-          Text(
-            '3 Menit menuju Dzhur',
-            style: textTheme(context).bodyText1?.copyWith(color: Colors.black),
           )
         ],
       ),

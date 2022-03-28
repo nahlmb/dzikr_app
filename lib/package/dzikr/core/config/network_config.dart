@@ -6,8 +6,9 @@ class NetworkConfig {
   NetworkConfig({required this.baseUrl});
   final String baseUrl;
 
-  doGet({Map<String, String>? headers}) async {
-    var response = await http.get(Uri.parse(baseUrl), headers: headers);
+  Future doGet(String endpoint, {Map<String, String>? headers}) async {
+    var response =
+        await http.get(Uri.parse(baseUrl + endpoint), headers: headers);
     return jsonDecode(response.body);
   }
 }

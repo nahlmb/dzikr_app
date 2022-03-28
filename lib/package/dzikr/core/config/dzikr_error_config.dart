@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class ErrorConfig {
+class DzikrErrorConfig {
   /// doTry() Fuction will allow [ErrorConfig] to run your function (via high order function params),
   /// and automaticly handle exception by [ErrorConfig] standart response to exception
   ///
@@ -15,7 +15,7 @@ class ErrorConfig {
     try {
       await action();
     } catch (e) {
-      printOnDebug("ErrorConfig : recognize global error : $e");
+      printOnDebug("DzikrErrorConfig : recognize global error : $e");
     }
   }
 }

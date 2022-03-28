@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-class NetworkConfig {
-  NetworkConfig({required this.baseUrl});
+class DzikrNetworkConfig {
+  DzikrNetworkConfig({required this.baseUrl});
   final String baseUrl;
 
   Future doGet(String endpoint, {Map<String, String>? headers}) async {

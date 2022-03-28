@@ -1,13 +1,14 @@
-import 'package:dzikr_app/package/dzikr/core/class/provider_class.dart';
-import 'package:dzikr_app/package/dzikr/core/config/network_config.dart';
+import 'package:dzikr_app/package/dzikr/core/class/dzikr_provider_class.dart';
+import 'package:dzikr_app/package/dzikr/core/config/dzikr_network_config.dart';
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_daily_model.dart';
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_time_data_model.dart';
 import 'package:intl/intl.dart';
 
-class PrayerTimeDataProvider extends ProviderClass {
+class PrayerTimeDataProvider extends DzikrProviderClass {
   PrayerTimeDataProvider()
       : super(
-            networkConfig: NetworkConfig(baseUrl: "http://api.aladhan.com/v1"));
+            networkConfig:
+                DzikrNetworkConfig(baseUrl: "http://api.aladhan.com/v1"));
 
   Future<PrayerTimeDataModel> getMonthlyPrayerTime(
       String lat, String long) async {

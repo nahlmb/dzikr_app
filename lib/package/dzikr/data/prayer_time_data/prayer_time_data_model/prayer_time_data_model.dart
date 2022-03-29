@@ -248,7 +248,7 @@ class Hijri {
   HijriMonth? month;
   String? year;
   Designation? designation;
-  List<Null>? holidays;
+  List<String>? holidays;
 
   Hijri(
       {this.date,
@@ -273,6 +273,7 @@ class Hijri {
     designation = json['designation'] != null
         ? new Designation.fromJson(json['designation'])
         : null;
+    holidays = json['holidays'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -290,6 +291,7 @@ class Hijri {
     if (this.designation != null) {
       data['designation'] = this.designation!.toJson();
     }
+    data['holidays'] = this.holidays;
     return data;
   }
 }
@@ -420,7 +422,7 @@ class Method {
 
 class Params {
   double? fajr;
-  double? isha;
+  String? isha;
 
   Params({this.fajr, this.isha});
 

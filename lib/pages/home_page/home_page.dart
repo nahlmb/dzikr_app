@@ -1,51 +1,60 @@
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/config/theme_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
+import 'package:dzikr_app/pages/home_page/home_state.dart';
 import 'package:dzikr_app/pages/prayer_page/prayer_page.dart';
 import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
 import 'package:dzikr_app/widgets/button_widget/button_widget.dart';
+import 'package:dzikr_app/widgets/closest_prayer_time_card_widget/closest_prayer_time_card_widget.dart';
 import 'package:dzikr_app/widgets/minus_divider_widget/minus_divider_widget.dart';
 import 'package:dzikr_app/widgets/next_button_widget/next_button_widget.dart';
 import 'package:dzikr_app/widgets/opacity_pressed_widget/opacity_pressed_widget.dart';
 import 'package:dzikr_app/widgets/page_standart_divider_widget/page_standart_divider_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBarWidget.getAppbar(context),
-        body: SafeArea(
-          bottom: false,
-          child: ListView(
-            children: [
-              const SizedBox(
-                height: SizeConfig.pagePaddingDivider,
-              ),
-              Padding(
-                padding: SizeConfig.pageHorizontalPadding,
-                child: getPrayerCardSection(context),
-              ),
-              const PageStandartDividerWidget(),
-              Padding(
-                padding: SizeConfig.pageHorizontalPadding,
-                child: getMenuSection(context),
-              ),
-              const PageStandartDividerWidget(),
-              Padding(
-                padding: SizeConfig.pageHorizontalPadding,
-                child: getQuranSection(context),
-              ),
-              const PageStandartDividerWidget(),
-              getDzikrAndDuaSection(context),
-              const SizedBox(
-                height: SizeConfig.s28,
-              ),
-            ],
-          ),
-        ));
+    return ChangeNotifierProvider<HomeState>(
+        create: (context) => HomeState(),
+        builder: (context, child) {
+          HomeState state = Provider.of<HomeState>(context, listen: false);
+          state.getPrayerTime();
+          return Scaffold(
+              appBar: AppBarWidget.getAppbar(context),
+              body: SafeArea(
+                bottom: false,
+                child: ListView(
+                  children: [
+                    const SizedBox(
+                      height: SizeConfig.pagePaddingDivider,
+                    ),
+                    Padding(
+                      padding: SizeConfig.pageHorizontalPadding,
+                      child: getPrayerCardSection(context),
+                    ),
+                    const PageStandartDividerWidget(),
+                    Padding(
+                      padding: SizeConfig.pageHorizontalPadding,
+                      child: getMenuSection(context),
+                    ),
+                    const PageStandartDividerWidget(),
+                    Padding(
+                      padding: SizeConfig.pageHorizontalPadding,
+                      child: getQuranSection(context),
+                    ),
+                    const PageStandartDividerWidget(),
+                    getDzikrAndDuaSection(context),
+                    const SizedBox(
+                      height: SizeConfig.s28,
+                    ),
+                  ],
+                ),
+              ));
+        });
   }
 
   Column getDzikrAndDuaSection(BuildContext context) {
@@ -254,42 +263,9 @@ class HomePage extends StatelessWidget {
   }
 
   Widget getPrayerCardSection(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(SizeConfig.s20),
-      decoration: BoxDecoration(
-          color: const Color(0xffC9E8FF), borderRadius: SizeConfig.radius),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Dzhur",
-                  style: textTheme(context)
-                      .headline1
-                      ?.copyWith(color: Colors.black)),
-              Text("12:00",
-                  style: textTheme(context).headline1?.copyWith(
-                      fontSize: SizeConfig.s42,
-                      height: 1,
-                      color: Colors.black)),
-              const SizedBox(
-                height: SizeConfig.s4,
-              ),
-              Text(
-                '3 Minutes to Dzhur',
-                style:
-                    textTheme(context).bodyText1?.copyWith(color: Colors.black),
-              )
-            ],
-          ),
-          NextButtonWidget(
-            onPress: () {},
-            iconColor: Colors.black,
-          )
-        ],
-      ),
-    );
+    return Consumer<HomeState>(builder: ((context, state, child) {
+      return ClosestPrayerCard();
+    }));
   }
 
   Widget getHeadlineIconItem(BuildContext context,

@@ -18,6 +18,7 @@ class PrayerTimeDataProvider extends DzikrProviderClass {
     var year = DateFormat('yyyy').format(date);
     var response = await networkConfig.doGet(
         '/calendar?latitude=$lat&longitude=$long&method=4&month=$month&year=$year');
+
     return PrayerTimeDataModel.fromJson(response);
   }
 

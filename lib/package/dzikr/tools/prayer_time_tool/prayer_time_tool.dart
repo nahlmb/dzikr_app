@@ -49,17 +49,15 @@ class PrayerTimeTool {
       {String? defaultLat,
       String? defaultLong,
       String? defaultPlaceName}) async {
+    var prayerTimeTool = PrayerTimeTool._();
     await DzikrErrorConfig.doTry(() async {
-      var prayerTimeTool = PrayerTimeTool._();
-
       if (defaultLat != null) prayerTimeTool._lat = defaultLat;
       if (defaultLong != null) prayerTimeTool._long = defaultLong;
       if (defaultPlaceName != null) prayerTimeTool._place = defaultPlaceName;
-
-      await prayerTimeTool._getLocation();
+      //await prayerTimeTool._getLocation();
       await prayerTimeTool._getPrayerTime();
-      return prayerTimeTool;
     });
+    return prayerTimeTool;
   }
 
   _getLocation() async {
@@ -72,7 +70,6 @@ class PrayerTimeTool {
     var locationData = await location.getLocation();
     _lat = locationData.latitude?.toString() ?? "";
     _long = locationData.longitude?.toString() ?? "";
-
     // Get geocode
     var geo = await Geolocator.getCurrentPosition();
     _lat = geo.latitude.toString();

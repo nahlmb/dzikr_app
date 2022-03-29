@@ -1,7 +1,7 @@
 import 'package:location/location.dart';
 
 class LocationUtils {
-  static Future checkLocationPremission() async {
+  static Future<bool> checkLocationPremission() async {
     Location location = Location();
 
     bool serviceEnabled;
@@ -11,7 +11,7 @@ class LocationUtils {
     if (!serviceEnabled) {
       serviceEnabled = await location.requestService();
       if (serviceEnabled) {
-        return;
+        return true;
       }
     }
 
@@ -19,8 +19,10 @@ class LocationUtils {
     if (permissionGranted == PermissionStatus.denied) {
       permissionGranted = await location.requestPermission();
       if (permissionGranted != PermissionStatus.granted) {
-        return;
+        return true;
       }
     }
+
+    return false;
   }
 }

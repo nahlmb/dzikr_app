@@ -1,3 +1,5 @@
+import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_closest_model.dart';
+
 class PrayerDailyModel {
   PrayerDailyModel(
       {required this.fajr,
@@ -5,7 +7,7 @@ class PrayerDailyModel {
       required this.ashar,
       required this.maghrib,
       required this.isya,
-      required this.closestPrayer,
-      required this.closestTime});
-  String fajr, dzhur, ashar, maghrib, isya, closestPrayer, closestTime;
+      required this.closestPrayerTime});
+  String fajr, dzhur, ashar, maghrib, isya;
+  PrayerClosestModel closestPrayerTime;
 }

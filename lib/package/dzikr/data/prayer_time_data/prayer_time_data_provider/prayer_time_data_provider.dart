@@ -1,5 +1,6 @@
 import 'package:dzikr_app/package/dzikr/core/class/dzikr_provider_class.dart';
 import 'package:dzikr_app/package/dzikr/core/config/dzikr_network_config.dart';
+import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_closest_model.dart';
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_daily_model.dart';
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_time_data_model.dart';
 import 'package:intl/intl.dart';
@@ -20,11 +21,10 @@ class PrayerTimeDataProvider extends DzikrProviderClass {
     return PrayerTimeDataModel.fromJson(response);
   }
 
-  Future<Data> getTodayPrayerTime(String lat, String long) async {
-    PrayerTimeDataModel response = await getMonthlyPrayerTime(lat, long);
+  Data getTodayPrayerTime({required PrayerTimeDataModel monthlySchedule}) {
     var date = DateTime.now();
     String nowDate = DateFormat('dd-MM-yyyy').format(date);
-    var todayData = response.data!
+    var todayData = monthlySchedule.data!
         .firstWhere((element) => element.date!.gregorian!.date == nowDate);
 
     return todayData;
@@ -85,7 +85,7 @@ class PrayerTimeDataProvider extends DzikrProviderClass {
         ashar: todayTimings.asr!,
         maghrib: todayTimings.maghrib!,
         isya: todayTimings.isha!,
-        closestPrayer: closestPrayer,
-        closestTime: closestPrayerTime);
+        closestPrayerTime: PrayerClosestModel(
+            closestPrayer: closestPrayer, closestTime: closestPrayerTime));
   }
 }

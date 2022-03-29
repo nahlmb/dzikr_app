@@ -264,7 +264,9 @@ class HomePage extends StatelessWidget {
 
   Widget getPrayerCardSection(BuildContext context) {
     return Consumer<HomeState>(builder: ((context, state, child) {
-      return ClosestPrayerCard();
+      return ClosestPrayerCard(
+        prayer: state.prayer,
+      );
     }));
   }
 

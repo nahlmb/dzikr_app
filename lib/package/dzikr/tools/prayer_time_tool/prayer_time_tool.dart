@@ -54,7 +54,7 @@ class PrayerTimeTool {
       if (defaultLat != null) prayerTimeTool._lat = defaultLat;
       if (defaultLong != null) prayerTimeTool._long = defaultLong;
       if (defaultPlaceName != null) prayerTimeTool._place = defaultPlaceName;
-      //await prayerTimeTool._getLocation();
+      await prayerTimeTool._getLocation();
       await prayerTimeTool._getPrayerTime();
     });
     return prayerTimeTool;
@@ -103,19 +103,19 @@ class PrayerTimeTool {
     return prayer;
   }
 
-  PrayerResponseModel refreshClosestPrayerTime(PrayerResponseModel prayer) {
-    var todaySchedule = _prayerTimeDataProvider.getTodayPrayerTime(
-        monthlySchedule: prayer.monthlySchedule);
+  static PrayerResponseModel findClosestPrayerTime(PrayerResponseModel prayer) {
+    PrayerTimeDataProvider provider = PrayerTimeDataProvider();
+    var todaySchedule =
+        provider.getTodayPrayerTime(monthlySchedule: prayer.monthlySchedule);
 
-    var detailedSchedule =
-        _prayerTimeDataProvider.findClosestPrayerTime(todaySchedule);
+    var detailedSchedule = provider.findClosestPrayerTime(todaySchedule);
 
     prayer = PrayerResponseModel(
         monthlySchedule: prayer.monthlySchedule,
         todaySchedule: detailedSchedule,
-        placeLat: _lat,
-        placeLong: _long,
-        placeName: _place);
+        placeLat: prayer.placeLat,
+        placeLong: prayer.placeLong,
+        placeName: prayer.placeName);
 
     return prayer;
   }

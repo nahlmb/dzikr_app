@@ -80,6 +80,18 @@ class PrayerTimeDataProvider extends DzikrProviderClass {
       closestPrayerTime = todayTimings.fajr!;
     }
 
+    var closestDate = format.parse(closestPrayerTime.substring(0, 5));
+    var closestDateExac = DateTime.utc(
+      date.year,
+      date.month,
+      date.day,
+      closestDate.hour,
+      closestDate.minute,
+    );
+
+    var closestDateDiffrance = closestDateExac.difference(
+        DateTime.utc(date.year, date.month, date.day, date.hour, date.minute));
+
     return PrayerDailyModel(
         fajr: todayTimings.fajr!,
         dzhur: todayTimings.dhuhr!,
@@ -87,6 +99,8 @@ class PrayerTimeDataProvider extends DzikrProviderClass {
         maghrib: todayTimings.maghrib!,
         isya: todayTimings.isha!,
         closestPrayerTime: PrayerClosestModel(
-            closestPrayer: closestPrayer, closestTime: closestPrayerTime));
+            closestPrayer: closestPrayer,
+            closestTime: closestPrayerTime,
+            durationToClosestPrayer: closestDateDiffrance));
   }
 }

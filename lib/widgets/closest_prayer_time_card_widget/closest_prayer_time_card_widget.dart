@@ -1,12 +1,14 @@
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
+import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_response_model.dart';
+import 'package:dzikr_app/package/dzikr/tools/prayer_time_tool/prayer_time_tool.dart';
 import 'package:dzikr_app/widgets/next_button_widget/next_button_widget.dart';
 import 'package:flutter/material.dart';
 
 class ClosestPrayerCard extends StatelessWidget {
-  const ClosestPrayerCard({
-    Key? key,
-  }) : super(key: key);
+  const ClosestPrayerCard({Key? key, required this.prayer}) : super(key: key);
+
+  final PrayerResponseModel? prayer;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +22,18 @@ class ClosestPrayerCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Dzhur",
+              Text(
+                  prayer == null
+                      ? "-"
+                      : prayer!.todaySchedule.closestPrayerTime.closestPrayer,
                   style: textTheme(context)
                       .headline1
                       ?.copyWith(color: Colors.black)),
-              Text("12:00",
+              Text(
+                  prayer == null
+                      ? "-"
+                      : prayer!.todaySchedule.closestPrayerTime.closestTime
+                          .substring(0, 5),
                   style: textTheme(context).headline1?.copyWith(
                       fontSize: SizeConfig.s42,
                       height: 1,
@@ -32,8 +41,14 @@ class ClosestPrayerCard extends StatelessWidget {
               const SizedBox(
                 height: SizeConfig.s4,
               ),
+              Text(prayer == null ? '-' : '${prayer!.placeName}',
+                  style: textTheme(context)
+                      .bodyText1
+                      ?.copyWith(color: Colors.black)),
               Text(
-                '3 Minutes to Dzhur',
+                prayer == null
+                    ? "-"
+                    : "${PrayerTimeTool.findClosestPrayerTime(prayer!).todaySchedule.closestPrayerTime.durationToClosestPrayer.inMinutes} Minute to ${prayer!.todaySchedule.closestPrayerTime.closestPrayer}",
                 style:
                     textTheme(context).bodyText1?.copyWith(color: Colors.black),
               )

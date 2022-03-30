@@ -6,13 +6,8 @@ class HomeState extends StateClass {
   PrayerResponseModel? prayer;
 
   getPrayerTime() async {
-    try {
-      print('e');
-      PrayerTimeTool prayerTimeTool = await PrayerTimeTool.init();
-      prayer = prayerTimeTool.prayer;
-      notifyListeners();
-    } catch (e) {
-      print(e);
-    }
+    PrayerTimeTool prayerTimeTool = await PrayerTimeTool.init();
+    prayer = prayerTimeTool.prayer;
+    notifyListeners();
   }
 }

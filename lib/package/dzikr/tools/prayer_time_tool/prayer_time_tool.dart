@@ -3,7 +3,6 @@ import 'package:dzikr_app/package/dzikr/core/utils/location_utils.dart';
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_response_model.dart';
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_provider/prayer_time_data_provider.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:location/location.dart' as loc;
 import 'package:geocoding/geocoding.dart' as geocoding;
 
 /// Tool for islamic regular 5 time prayer schedule.
@@ -66,10 +65,7 @@ class PrayerTimeTool {
     if (isPermissionOk == false) {
       // permission not granted
     }
-    loc.Location location = loc.Location();
-    var locationData = await location.getLocation();
-    _lat = locationData.latitude?.toString() ?? "";
-    _long = locationData.longitude?.toString() ?? "";
+
     // Get geocode
     var geo = await Geolocator.getCurrentPosition();
     _lat = geo.latitude.toString();

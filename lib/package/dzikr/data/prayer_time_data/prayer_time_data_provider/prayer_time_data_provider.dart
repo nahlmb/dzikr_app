@@ -81,6 +81,7 @@ class PrayerTimeDataProvider extends DzikrProviderClass {
     }
 
     var closestDate = format.parse(closestPrayerTime.substring(0, 5));
+
     var closestDateExac = DateTime.utc(
       date.year,
       date.month,

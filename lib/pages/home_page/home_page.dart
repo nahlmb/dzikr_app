@@ -3,6 +3,7 @@ import 'package:dzikr_app/core/config/theme_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
 import 'package:dzikr_app/pages/home_page/home_state.dart';
 import 'package:dzikr_app/pages/prayer_page/prayer_page.dart';
+import 'package:dzikr_app/pages/quran_page/quran_page.dart';
 import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
 import 'package:dzikr_app/widgets/button_widget/button_widget.dart';
 import 'package:dzikr_app/widgets/closest_prayer_time_card_widget/closest_prayer_time_card_widget.dart';
@@ -148,8 +149,10 @@ class HomePage extends StatelessWidget {
           ),
           Expanded(
               flex: 2,
-              child: getHeadlineIconItem(context,
-                  onPress: () {},
+              child: getHeadlineIconItem(context, onPress: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => QuranPage()));
+              },
                   icon: Icon(
                     Icons.auto_stories_rounded,
                     size: SizeConfig.s32,

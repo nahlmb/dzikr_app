@@ -1,6 +1,9 @@
 import 'package:dzikr_app/package/dzikr/core/config/dzikr_error_config.dart';
 import 'package:dzikr_app/package/dzikr/core/utils/location_utils.dart';
+import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_closest_model.dart';
+import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_daily_model.dart';
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_response_model.dart';
+import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_time_data_model.dart';
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_provider/prayer_time_data_provider.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart' as geocoding;
@@ -37,14 +40,28 @@ class PrayerTimeTool {
   String _long = "106.82706696674836";
   String _place = "Jakarta";
 
-  late PrayerResponseModel prayer;
+  PrayerResponseModel prayer = PrayerResponseModel(
+      monthlySchedule: PrayerTimeDataModel(),
+      todaySchedule: PrayerDailyModel(
+          fajr: '-',
+          dzhur: '-',
+          ashar: '-',
+          maghrib: '-',
+          isya: '-',
+          closestPrayerTime: PrayerClosestModel(
+              closestPrayer: '-',
+              closestTime: '-',
+              durationToClosestPrayer: const Duration(seconds: 0))),
+      placeLat: '-6.175445728394261',
+      placeLong: '106.82706696674836',
+      placeName: 'Jakarta');
 
   // Provider
   final PrayerTimeDataProvider _prayerTimeDataProvider =
       PrayerTimeDataProvider();
 
   /// Initial method of [PrayerTimeTool]
-  static init(
+  static Future<PrayerTimeTool> init(
       {String? defaultLat,
       String? defaultLong,
       String? defaultPlaceName}) async {

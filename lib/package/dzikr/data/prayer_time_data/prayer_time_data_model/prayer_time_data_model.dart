@@ -345,17 +345,16 @@ class Meta {
   String? latitudeAdjustmentMethod;
   String? midnightMode;
   String? school;
-  Offset? offset;
 
-  Meta(
-      {this.latitude,
-      this.longitude,
-      this.timezone,
-      this.method,
-      this.latitudeAdjustmentMethod,
-      this.midnightMode,
-      this.school,
-      this.offset});
+  Meta({
+    this.latitude,
+    this.longitude,
+    this.timezone,
+    this.method,
+    this.latitudeAdjustmentMethod,
+    this.midnightMode,
+    this.school,
+  });
 
   Meta.fromJson(Map<String, dynamic> json) {
     latitude = json['latitude'];
@@ -366,8 +365,6 @@ class Meta {
     latitudeAdjustmentMethod = json['latitudeAdjustmentMethod'];
     midnightMode = json['midnightMode'];
     school = json['school'];
-    offset =
-        json['offset'] != null ? new Offset.fromJson(json['offset']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -381,9 +378,7 @@ class Meta {
     data['latitudeAdjustmentMethod'] = this.latitudeAdjustmentMethod;
     data['midnightMode'] = this.midnightMode;
     data['school'] = this.school;
-    if (this.offset != null) {
-      data['offset'] = this.offset!.toJson();
-    }
+
     return data;
   }
 }
@@ -454,55 +449,6 @@ class Location {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
-    return data;
-  }
-}
-
-class Offset {
-  int? imsak;
-  int? fajr;
-  int? sunrise;
-  int? dhuhr;
-  int? asr;
-  int? maghrib;
-  int? sunset;
-  int? isha;
-  int? midnight;
-
-  Offset(
-      {this.imsak,
-      this.fajr,
-      this.sunrise,
-      this.dhuhr,
-      this.asr,
-      this.maghrib,
-      this.sunset,
-      this.isha,
-      this.midnight});
-
-  Offset.fromJson(Map<String, dynamic> json) {
-    imsak = json['Imsak'];
-    fajr = json['Fajr'];
-    sunrise = json['Sunrise'];
-    dhuhr = json['Dhuhr'];
-    asr = json['Asr'];
-    maghrib = json['Maghrib'];
-    sunset = json['Sunset'];
-    isha = json['Isha'];
-    midnight = json['Midnight'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Imsak'] = this.imsak;
-    data['Fajr'] = this.fajr;
-    data['Sunrise'] = this.sunrise;
-    data['Dhuhr'] = this.dhuhr;
-    data['Asr'] = this.asr;
-    data['Maghrib'] = this.maghrib;
-    data['Sunset'] = this.sunset;
-    data['Isha'] = this.isha;
-    data['Midnight'] = this.midnight;
     return data;
   }
 }

@@ -7,6 +7,8 @@ class QuranState extends StateClass {
   // Data
   List<QuranPageResultModel> pages = [];
   int activeQuranPageIndex = 0;
+  bool isUsingPageMode = true;
+  bool isShowToolbar = true;
 
   // Controller
   PageController quranPageController = PageController();
@@ -23,6 +25,16 @@ class QuranState extends StateClass {
     quranIndicatorPageController.animateToPage(page,
         duration: const Duration(milliseconds: 250), curve: Curves.linear);
     activeQuranPageIndex = page;
+    notifyListeners();
+  }
+
+  toogleQuranMode() {
+    isUsingPageMode = !isUsingPageMode;
+    notifyListeners();
+  }
+
+  toogleIsShowToolbar() {
+    isShowToolbar = !isShowToolbar;
     notifyListeners();
   }
 

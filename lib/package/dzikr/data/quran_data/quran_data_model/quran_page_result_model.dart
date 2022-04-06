@@ -1,9 +1,16 @@
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_model.dart';
 
 class QuranPageResultModel {
-  QuranPageResultModel({required this.lines, required this.pageNumber});
+  QuranPageResultModel(
+      {required this.lines, required this.pageNumber, required this.verses});
   List<QuranLineResultModel> lines;
+  QuranVersesResultModel verses;
   int pageNumber;
+}
+
+class QuranVersesResultModel {
+  QuranVersesResultModel({required this.verses});
+  List<Verses>? verses;
 }
 
 class QuranLineResultModel {

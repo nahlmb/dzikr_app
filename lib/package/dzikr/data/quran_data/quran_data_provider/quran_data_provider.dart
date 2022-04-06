@@ -112,8 +112,10 @@ class QuranDataProvider extends DzikrProviderClass {
         lines[lineIndex].fontSize = getLineFontSizes(lines[lineIndex].words);
       }
 
-      resultedPage
-          .add(QuranPageResultModel(lines: lines, pageNumber: pageNumber));
+      resultedPage.add(QuranPageResultModel(
+          lines: lines,
+          pageNumber: pageNumber,
+          verses: QuranVersesResultModel(verses: page.verses!)));
     }
     return resultedPage;
   }

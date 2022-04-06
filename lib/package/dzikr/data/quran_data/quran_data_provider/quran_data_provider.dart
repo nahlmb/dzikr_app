@@ -104,6 +104,9 @@ class QuranDataProvider extends DzikrProviderClass {
             55) {
           lines[lineIndex].isUsingLineStretch = false;
         }
+        if (pageNumber == 1 || pageNumber == 2) {
+          lines[lineIndex].isUsingLineStretch = false;
+        }
 
         // get font size
         lines[lineIndex].fontSize = getLineFontSizes(lines[lineIndex].words);

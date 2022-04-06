@@ -1,4 +1,5 @@
 import 'package:dzikr_app/package/dzikr/core/class/dzikr_provider_class.dart';
+import 'package:dzikr_app/package/dzikr/core/config/dzikr_error_config.dart';
 import 'package:dzikr_app/package/dzikr/core/config/dzikr_network_config.dart';
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_closest_model.dart';
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_daily_model.dart';
@@ -25,6 +26,10 @@ class PrayerTimeDataProvider extends DzikrProviderClass {
   Data getTodayPrayerTime({required PrayerTimeDataModel monthlySchedule}) {
     var date = DateTime.now();
     String nowDate = DateFormat('dd-MM-yyyy').format(date);
+    if (monthlySchedule.data == null) {
+      throw DzikrErrorConfig(
+          DzikrErrorConfig.causeNull, "Monthly schedule data is null");
+    }
     var todayData = monthlySchedule.data!
         .firstWhere((element) => element.date!.gregorian!.date == nowDate);
 

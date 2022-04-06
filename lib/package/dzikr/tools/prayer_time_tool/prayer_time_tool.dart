@@ -43,14 +43,14 @@ class PrayerTimeTool {
   PrayerResponseModel prayer = PrayerResponseModel(
       monthlySchedule: PrayerTimeDataModel(),
       todaySchedule: PrayerDailyModel(
-          fajr: '-',
-          dzhur: '-',
-          ashar: '-',
-          maghrib: '-',
-          isya: '-',
+          fajr: '00:00',
+          dzhur: '00:00',
+          ashar: '00:00',
+          maghrib: '00:00',
+          isya: '00:00',
           closestPrayerTime: PrayerClosestModel(
-              closestPrayer: '-',
-              closestTime: '-',
+              closestPrayer: 'Prayer',
+              closestTime: '00:00',
               durationToClosestPrayer: const Duration(seconds: 0))),
       placeLat: '-6.175445728394261',
       placeLong: '106.82706696674836',
@@ -118,17 +118,18 @@ class PrayerTimeTool {
 
   static PrayerResponseModel findClosestPrayerTime(PrayerResponseModel prayer) {
     PrayerTimeDataProvider provider = PrayerTimeDataProvider();
-    var todaySchedule =
-        provider.getTodayPrayerTime(monthlySchedule: prayer.monthlySchedule);
+    DzikrErrorConfig.doTry(() {
+      var todaySchedule =
+          provider.getTodayPrayerTime(monthlySchedule: prayer.monthlySchedule);
+      var detailedSchedule = provider.findClosestPrayerTime(todaySchedule);
 
-    var detailedSchedule = provider.findClosestPrayerTime(todaySchedule);
-
-    prayer = PrayerResponseModel(
-        monthlySchedule: prayer.monthlySchedule,
-        todaySchedule: detailedSchedule,
-        placeLat: prayer.placeLat,
-        placeLong: prayer.placeLong,
-        placeName: prayer.placeName);
+      prayer = PrayerResponseModel(
+          monthlySchedule: prayer.monthlySchedule,
+          todaySchedule: detailedSchedule,
+          placeLat: prayer.placeLat,
+          placeLong: prayer.placeLong,
+          placeName: prayer.placeName);
+    }).then((value) => null);
 
     return prayer;
   }

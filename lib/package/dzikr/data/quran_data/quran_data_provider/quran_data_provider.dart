@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dzikr_app/package/dzikr/core/class/dzikr_provider_class.dart';
 import 'package:dzikr_app/package/dzikr/core/config/dzikr_network_config.dart';
+import 'package:dzikr_app/package/dzikr/core/utils/quran_utils.dart';
+import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_chapter_model.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_model.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_result_model.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +14,10 @@ class QuranDataProvider extends DzikrProviderClass {
 
   final String assetPath;
 
-  // whole Quran API here
-  //https://api.quran.com/api/v4/verses/by_page/{nomer halaman}?language=id&words=true&translations=134&audio=3&word_fields=qpc_uthmani_hafs&page=1&per_page=50
+  Future<QuranChapterModel> getSurahList() async {
+    return QuranChapterModel.fromJson(await jsonDecode(
+        await rootBundle.loadString('$assetPath/chapters.json')));
+  }
 
   Future<List<QuranPageModel>> getCompleteQuranAsset() async {
     return [

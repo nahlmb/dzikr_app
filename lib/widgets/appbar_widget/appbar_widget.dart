@@ -33,9 +33,7 @@ class AppBarWidget {
             ),
       actions: [
         if (actions != null)
-          for (var actionIndex = 0;
-              actionIndex < actions!.length;
-              actionIndex++)
+          for (var actionIndex = 0; actionIndex < actions.length; actionIndex++)
             actions[actionIndex],
         const SizedBox(
           width: SizeConfig.s14,

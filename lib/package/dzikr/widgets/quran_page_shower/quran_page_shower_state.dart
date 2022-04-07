@@ -3,7 +3,7 @@ import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_p
 import 'package:dzikr_app/package/dzikr/tools/quran_tool/quran_tool.dart';
 import 'package:flutter/material.dart';
 
-class QuranState extends StateClass {
+class QuranPageShowerState extends StateClass {
   // Data
   List<QuranPageResultModel> pages = [];
   int activeQuranPageIndex = 0;
@@ -11,9 +11,16 @@ class QuranState extends StateClass {
   bool isShowToolbar = true;
 
   // Controller
-  PageController quranPageController = PageController();
-  PageController quranIndicatorPageController =
-      PageController(viewportFraction: 0.1, initialPage: 0);
+  late PageController quranPageController;
+  late PageController quranIndicatorPageController;
+
+  init(BuildContext context, {int? initialPage}) {
+    activeQuranPageIndex = initialPage ?? activeQuranPageIndex;
+    quranPageController = PageController(initialPage: activeQuranPageIndex);
+    quranIndicatorPageController = PageController(
+        viewportFraction: (0.45 / MediaQuery.of(context).size.width) * 100,
+        initialPage: activeQuranPageIndex);
+  }
 
   setActiveQuranPageViaIndicator(int page) {
     quranPageController.jumpToPage(page);

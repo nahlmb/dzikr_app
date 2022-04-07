@@ -89,12 +89,30 @@ class QuranDataProvider extends DzikrProviderClass {
 
       for (var lineIndex = 0; lineIndex < lines.length; lineIndex++) {
         // check if begining of surah or not
+        // exception
+        if ((lineIndex != lines.length - 1) && pageNumber == 1) {
+          // surah begining
+          lines[lineIndex].isSurahBegining = true;
+        }
         if (lines[lineIndex].words.isEmpty) {
           if ((lineIndex != lines.length - 1) &&
               lines[lineIndex + 1].words.isEmpty) {
+            // surah begining
             lines[lineIndex].isSurahBegining = true;
-            if (pageNumber != 1 && pageNumber != 187) {
+
+            // Set basmalah
+            if (pageNumber != 1 || pageNumber != 187) {
               lines[lineIndex + 1].isBasmallah = true;
+            }
+
+            // exception
+            if (pageNumber == 2 && lineIndex > 2) {
+              lines[lineIndex].isSurahBegining = false;
+              lines[lineIndex + 1].isBasmallah = false;
+            }
+            if (pageNumber == 1 && lineIndex > 2) {
+              lines[lineIndex].isSurahBegining = false;
+              lines[lineIndex + 1].isBasmallah = false;
             }
           }
         }

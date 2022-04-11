@@ -1,9 +1,11 @@
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/package/dzikr/core/utils/quran_utils.dart';
 import 'package:dzikr_app/package/dzikr/core/utils/size_utils.dart';
+import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_chapter_model.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_model.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_result_model.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_shower_config_model.dart';
+import 'package:dzikr_app/package/dzikr/tools/quran_tool/quran_tool.dart';
 import 'package:dzikr_app/package/dzikr/widgets/quran_page_shower/quran_page_shower_state.dart';
 import 'package:dzikr_app/widgets/minus_divider_widget/minus_divider_widget.dart';
 import 'package:dzikr_app/widgets/opacity_pressed_widget/opacity_longpress_widget.dart';
@@ -138,54 +140,15 @@ class QuranPageWidget extends StatelessWidget {
                     width: double.infinity,
                     child: page.lines[index].words.isEmpty
                         ? page.lines[index].isSurahBegining
-                            ? Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: SizeConfig.s12),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: SizeConfig.s4),
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(SizeConfig.s6),
-                                      color: config.surfaceColor),
-                                  child: Center(
-                                    child: Text(
-                                      'aa',
-                                      style: TextStyle(
-                                          color: config.onSurfaceColor,
-                                          fontSize: DzikrSizeUtils
-                                              .adjustQuranTextSizeWithMediaQuery(
-                                                  page.lines[index].fontSize,
-                                                  context),
-                                          fontFamily:
-                                              'KFGQPCHAFSUthmanicScriptRegular'),
-                                    ),
-                                  ),
-                                ),
-                              )
+                            ? BeginingSurahCard(
+                                line: page.lines[index + 2], config: config)
                             : page.lines[index].isBasmallah
-                                ? Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: SizeConfig.s2),
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 0),
-                                      child: Center(
-                                        child: Text(
-                                          'بِسْمِ اللّهِ الرَّحْمَنِ الرَّحِيْمِ',
-                                          textDirection: TextDirection.rtl,
-                                          style: TextStyle(
-                                              color: config.onBackgroundColor,
-                                              fontSize: DzikrSizeUtils
-                                                  .adjustQuranTextSizeWithMediaQuery(
-                                                      page.lines[index]
-                                                          .fontSize,
-                                                      context),
-                                              fontFamily:
-                                                  'KFGQPCHAFSUthmanicScriptRegular'),
-                                        ),
-                                      ),
-                                    ),
+                                ? BasmalahWord(
+                                    config: config,
+                                    fontSize: DzikrSizeUtils
+                                        .adjustQuranTextSizeWithMediaQuery(
+                                            page.lines[index].fontSize,
+                                            context),
                                   )
                                 : const SizedBox()
                         : QuranLineWidget(
@@ -273,6 +236,77 @@ class QuranPageWidget extends StatelessWidget {
   }
 }
 
+class BasmalahWord extends StatelessWidget {
+  const BasmalahWord({
+    Key? key,
+    required this.config,
+    required this.fontSize,
+  }) : super(key: key);
+
+  final double fontSize;
+  final QuranPageShowerConfig config;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: SizeConfig.s2),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 0),
+        child: Center(
+          child: Text(
+            'بِسْمِ اللّهِ الرَّحْمَنِ الرَّحِيْمِ',
+            textDirection: TextDirection.rtl,
+            style: TextStyle(
+                color: config.onBackgroundColor,
+                fontSize: fontSize,
+                fontFamily: 'KFGQPCHAFSUthmanicScriptRegular'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BeginingSurahCard extends StatelessWidget {
+  const BeginingSurahCard({
+    Key? key,
+    required this.line,
+    required this.config,
+  }) : super(key: key);
+
+  final QuranLineResultModel line;
+  final QuranPageShowerConfig config;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Chapters>(
+        future: QuranTools.getQuranChapterByNum(line.surahNum),
+        builder: (context, snapshot) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: SizeConfig.s12),
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: SizeConfig.s4),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(SizeConfig.s6),
+                  color: config.surfaceColor),
+              child: Center(
+                  child: Text(
+                snapshot.connectionState == ConnectionState.done &&
+                        snapshot.data != null
+                    ? snapshot.data!.nameArabic ?? ""
+                    : "",
+                style: TextStyle(
+                    color: config.onSurfaceColor,
+                    fontSize: DzikrSizeUtils.adjustQuranTextSizeWithMediaQuery(
+                        line.fontSize, context),
+                    fontFamily: 'KFGQPCHAFSUthmanicScriptRegular'),
+              )),
+            ),
+          );
+        });
+  }
+}
+
 class QuranLineWidget extends StatelessWidget {
   const QuranLineWidget(
       {Key? key,
@@ -294,17 +328,14 @@ class QuranLineWidget extends StatelessWidget {
           stretch ? MainAxisAlignment.spaceAround : MainAxisAlignment.center,
       children: [
         for (var wordIndex = 0; wordIndex < words.length; wordIndex++)
-          OpacityLongpressWidget(
-            onPress: () {},
-            child: Text(
-              "${words[wordIndex].qpcUthmaniHafs}",
-              textDirection: TextDirection.rtl,
-              style: TextStyle(
-                  color: color,
-                  fontSize: DzikrSizeUtils.adjustQuranTextSizeWithMediaQuery(
-                      fontSize, context),
-                  fontFamily: 'KFGQPCHAFSUthmanicScriptRegular'),
-            ),
+          Text(
+            "${words[wordIndex].qpcUthmaniHafs}",
+            textDirection: TextDirection.rtl,
+            style: TextStyle(
+                color: color,
+                fontSize: DzikrSizeUtils.adjustQuranTextSizeWithMediaQuery(
+                    fontSize, context),
+                fontFamily: 'KFGQPCHAFSUthmanicScriptRegular'),
           )
       ],
     );

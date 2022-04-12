@@ -46,7 +46,7 @@ class QuranPageShowerState extends StateClass {
   }
 
   getQuranPage() async {
-    var quranTools = QuranTools();
+    var quranTools = QuranTool();
     pages = await quranTools.getQuranPages();
     notifyListeners();
   }

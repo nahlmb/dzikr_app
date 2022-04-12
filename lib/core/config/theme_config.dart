@@ -120,3 +120,19 @@ class ThemeConfig {
   static Color sweetPurple = const Color(0xff4355F1);
   static Color sweetRed = const Color(0xffD42479);
 }
+
+const double padding3XS = 1;
+const double padding2XS = 2;
+const double paddingXS = 4;
+const double paddingS = 6;
+const double paddingM = 8;
+const double paddingL = 12;
+const double padding2L = 16;
+const double paddingXL = 18;
+const double padding2XL = 24;
+const double padding3XL = 28;
+const double padding4XL = 32;
+const double padding5XL = 36;
+const double padding6XL = 64;
+const double padding7XL = 72;
+const double padding8XL = 92;

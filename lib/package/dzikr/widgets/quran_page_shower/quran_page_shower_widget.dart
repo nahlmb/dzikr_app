@@ -1,14 +1,12 @@
-import 'package:dzikr_app/core/config/size_config.dart';
-import 'package:dzikr_app/package/dzikr/core/utils/quran_utils.dart';
+import 'package:dzikr_app/package/dzikr/core/config/size_config.dart';
 import 'package:dzikr_app/package/dzikr/core/utils/size_utils.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_chapter_model.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_model.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_result_model.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_shower_config_model.dart';
 import 'package:dzikr_app/package/dzikr/tools/quran_tool/quran_tool.dart';
+import 'package:dzikr_app/package/dzikr/widgets/minus_divider_widget/minus_divider_widget.dart';
 import 'package:dzikr_app/package/dzikr/widgets/quran_page_shower/quran_page_shower_state.dart';
-import 'package:dzikr_app/widgets/minus_divider_widget/minus_divider_widget.dart';
-import 'package:dzikr_app/widgets/opacity_pressed_widget/opacity_longpress_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -280,7 +278,7 @@ class BeginingSurahCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Chapters>(
-        future: QuranTools.getQuranChapterByNum(line.surahNum),
+        future: QuranTool.getQuranChapterByNum(line.surahNum),
         builder: (context, snapshot) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: SizeConfig.s12),

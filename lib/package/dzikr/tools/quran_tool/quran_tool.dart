@@ -7,6 +7,13 @@ class QuranTool {
   QuranDataProvider quranDataProvider =
       QuranDataProvider(assetPath: 'assets/quran');
 
+  QuranTool._();
+
+  static QuranTool init() {
+    QuranTool quranTool = QuranTool._();
+    return quranTool;
+  }
+
   Future<List<QuranPageResultModel>> getQuranPages() async {
     return await quranDataProvider.getCompleteResultQuranData();
   }
@@ -15,15 +22,11 @@ class QuranTool {
     return await QuranUtils.getSurahByNumber(chapterNum);
   }
 
-  static Future<int> getLastOpenedPageIndex() async {
-    QuranDataProvider quranDataProvider =
-        QuranDataProvider(assetPath: 'assets/quran');
+  Future<int> getLastOpenedPageIndex() async {
     return await quranDataProvider.getLastOpenedPageIndex();
   }
 
-  static Future setLastOpenedPageIndex(int page) async {
-    QuranDataProvider quranDataProvider =
-        QuranDataProvider(assetPath: 'assets/quran');
+  Future setLastOpenedPageIndex(int page) async {
     return await quranDataProvider.setLastOpenedPageIndex(page);
   }
 }

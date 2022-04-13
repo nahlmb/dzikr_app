@@ -3,10 +3,26 @@ import 'package:dzikr_app/package/dzikr/data/book_data/book_data_model/book_data
 import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_response_model.dart';
 import 'package:dzikr_app/package/dzikr/tools/book_tool/book_tool.dart';
 import 'package:dzikr_app/package/dzikr/tools/prayer_time_tool/prayer_time_tool.dart';
+import 'package:dzikr_app/package/dzikr/tools/quran_tool/quran_tool.dart';
 
 class HomeState extends StateClass {
+  // Tools
+  QuranTool quranTool = QuranTool.init();
+
+  // Data
   PrayerResponseModel? prayer;
   List<Book> books = [];
+  int lastPageRead = 0;
+
+  init() {
+    getLastPageRead();
+    getPrayerTime();
+    getBooks();
+  }
+
+  getLastPageRead() {
+    quranTool.getLastOpenedPageIndex().then((value) => lastPageRead = value);
+  }
 
   getPrayerTime() async {
     PrayerTimeTool prayerTimeTool = await PrayerTimeTool.init();

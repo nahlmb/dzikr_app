@@ -11,14 +11,14 @@ class QuranPageShowerState extends StateClass {
   bool isShowToolbar = true;
 
   // Tools
-  var quranTools = QuranTool();
+  var quranTools = QuranTool.init();
 
   // Controller
   PageController? quranPageController;
   PageController? quranIndicatorPageController;
 
   init(BuildContext context, {int? initialPage}) {
-    QuranTool.getLastOpenedPageIndex().then((value) {
+    quranTools.getLastOpenedPageIndex().then((value) {
       activeQuranPageIndex = value;
       activeQuranPageIndex = initialPage ?? activeQuranPageIndex;
       quranPageController = PageController(initialPage: activeQuranPageIndex);
@@ -37,7 +37,7 @@ class QuranPageShowerState extends StateClass {
     quranIndicatorPageController!.animateToPage(page,
         duration: const Duration(milliseconds: 250), curve: Curves.linear);
     activeQuranPageIndex = page;
-    QuranTool.setLastOpenedPageIndex(activeQuranPageIndex);
+    quranTools.setLastOpenedPageIndex(activeQuranPageIndex);
     notifyListeners();
   }
 

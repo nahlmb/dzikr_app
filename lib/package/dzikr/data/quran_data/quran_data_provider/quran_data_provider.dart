@@ -10,19 +10,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class QuranDataProvider extends DzikrProviderClass {
   QuranDataProvider({required this.assetPath})
-      : super(networkConfig: DzikrNetworkConfig(baseUrl: ''));
+      : super(networkConfig: DzikrNetworkConfig(baseUrl: '')) {
+    SharedPreferences.getInstance().then((value) => prefs = value);
+  }
 
+  SharedPreferences? prefs;
   final String assetPath;
   final String _lastOpenedPageIndexKey = "last-opened-quran-page-index";
 
   Future<int> getLastOpenedPageIndex() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(_lastOpenedPageIndexKey) ?? 1;
+    if (prefs != null) return prefs!.getInt(_lastOpenedPageIndexKey) ?? 1;
+    return 1;
   }
 
   Future setLastOpenedPageIndex(int page) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setInt(_lastOpenedPageIndexKey, page);
+    if (prefs != null) {
+      prefs!.setInt(_lastOpenedPageIndexKey, page);
+    }
   }
 
   Future<QuranChapterModel> getSurahList() async {

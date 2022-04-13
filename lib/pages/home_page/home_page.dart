@@ -25,8 +25,7 @@ class HomePage extends StatelessWidget {
         create: (context) => HomeState(),
         builder: (context, child) {
           HomeState state = Provider.of<HomeState>(context, listen: false);
-          state.getPrayerTime();
-          state.getBooks();
+          state.init();
           return Scaffold(
               appBar: AppBarWidget.getAppbar(context),
               body: SafeArea(
@@ -45,11 +44,7 @@ class HomePage extends StatelessWidget {
                       padding: SizeConfig.pageHorizontalPadding,
                       child: getMenuSection(context),
                     ),
-                    const PageStandartDividerWidget(),
-                    Padding(
-                      padding: SizeConfig.pageHorizontalPadding,
-                      child: getQuranSection(context),
-                    ),
+                    getQuranSection(context),
                     const PageStandartDividerWidget(),
                     getDzikrAndDuaSection(context),
                     const SizedBox(
@@ -219,54 +214,65 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Column getQuranSection(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Al Quran",
-          style: textTheme(context).headline3,
-        ),
-        const Text("Have you read quran today"),
-        const SizedBox(
-          height: SizeConfig.s18,
-        ),
-        Container(
-          padding: SizeConfig.pagePadding,
-          decoration: BoxDecoration(
-              color: ThemeConfig.sweetGreen, borderRadius: SizeConfig.radius),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Continue last Quran reading',
-                  style: textTheme(context)
-                      .headline5
-                      ?.copyWith(color: Colors.white)),
-              FutureBuilder<int>(
-                future: QuranTool.getLastOpenedPageIndex(),
-                builder: (context, snapshot) => Text(
-                  'Page ${snapshot.data}',
-                  style: textTheme(context)
-                      .bodyText1
-                      ?.copyWith(color: Colors.white),
+  Widget getQuranSection(BuildContext context) {
+    return Consumer<HomeState>(builder: (context, state, child) {
+      return state.lastPageRead == 0
+          ? const SizedBox()
+          : Column(
+              children: [
+                const PageStandartDividerWidget(),
+                Padding(
+                  padding: SizeConfig.pageHorizontalPadding,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Al Quran",
+                        style: textTheme(context).headline3,
+                      ),
+                      const Text("Have you read quran today"),
+                      const SizedBox(
+                        height: SizeConfig.s18,
+                      ),
+                      Container(
+                        padding: SizeConfig.pagePadding,
+                        decoration: BoxDecoration(
+                            color: ThemeConfig.sweetGreen,
+                            borderRadius: SizeConfig.radius),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Continue last Quran reading',
+                                style: textTheme(context)
+                                    .headline5
+                                    ?.copyWith(color: Colors.white)),
+                            Text(
+                              'Page ${state.lastPageRead}',
+                              style: textTheme(context)
+                                  .bodyText1
+                                  ?.copyWith(color: Colors.white),
+                            ),
+                            const SizedBox(
+                              height: SizeConfig.s12,
+                            ),
+                            ButtonWidget(
+                              text: "Continue read",
+                              onTap: () {},
+                              isFull: true,
+                              isSmall: true,
+                              buttonTextStyle: textTheme(context)
+                                  .bodyText1
+                                  ?.copyWith(color: Colors.white),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: SizeConfig.s12,
-              ),
-              ButtonWidget(
-                text: "Continue read",
-                onTap: () {},
-                isFull: true,
-                isSmall: true,
-                buttonTextStyle:
-                    textTheme(context).bodyText1?.copyWith(color: Colors.white),
-              )
-            ],
-          ),
-        ),
-      ],
-    );
+              ],
+            );
+    });
   }
 
   Widget getPrayerCardSection(BuildContext context) {

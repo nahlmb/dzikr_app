@@ -24,7 +24,6 @@ class QuranPageShowerState extends StateClass {
 
   setActiveQuranPageViaIndicator(int page) {
     quranPageController.jumpToPage(page);
-    activeQuranPageIndex = page;
     notifyListeners();
   }
 

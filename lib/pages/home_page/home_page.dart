@@ -1,6 +1,7 @@
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/config/theme_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
+import 'package:dzikr_app/pages/dzikr_detail_page/dzikr_detail_page.dart';
 import 'package:dzikr_app/pages/home_page/home_state.dart';
 import 'package:dzikr_app/pages/prayer_page/prayer_page.dart';
 import 'package:dzikr_app/pages/quran_implementation_page/quran_implementation_page.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatelessWidget {
         builder: (context, child) {
           HomeState state = Provider.of<HomeState>(context, listen: false);
           state.getPrayerTime();
+          state.getBooks();
           return Scaffold(
               appBar: AppBarWidget.getAppbar(context),
               body: SafeArea(
@@ -86,55 +88,50 @@ class HomePage extends StatelessWidget {
         const SizedBox(
           height: SizeConfig.s20,
         ),
-        Container(
-          decoration: BoxDecoration(color: colorSchame(context).surface),
-          child: ListView(
-            physics: const ClampingScrollPhysics(),
-            padding: SizeConfig.pageHorizontalPadding,
-            shrinkWrap: true,
-            children: const [
-              SizedBox(
-                height: SizeConfig.s18,
+        Consumer<HomeState>(builder: (context, state, child) {
+          return Container(
+            decoration: BoxDecoration(color: colorSchame(context).surface),
+            child: ListView.builder(
+              physics: const ClampingScrollPhysics(),
+              padding: SizeConfig.pageHorizontalPadding,
+              shrinkWrap: true,
+              itemCount: state.books.length,
+              itemBuilder: (context, index) => Column(
+                children: [
+                  const SizedBox(
+                    height: SizeConfig.s18,
+                  ),
+                  OpacityPressedWidget(
+                    onPress: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) =>
+                                  DzikrDetailPage(book: state.books[index]))));
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Row(
+                        children: [
+                          Text(
+                            state.books[index].title!,
+                            style: TextStyle(fontSize: SizeConfig.s16),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: SizeConfig.s18,
+                  ),
+                  const MinusDividerWidget(
+                      left: SizeConfig.pagePaddingNum,
+                      right: SizeConfig.pagePaddingNum),
+                ],
               ),
-              Text(
-                "Dzikir Pagi",
-                style: TextStyle(fontSize: SizeConfig.s16),
-              ),
-              SizedBox(
-                height: SizeConfig.s18,
-              ),
-              MinusDividerWidget(
-                  left: SizeConfig.pagePaddingNum,
-                  right: SizeConfig.pagePaddingNum),
-              SizedBox(
-                height: SizeConfig.s18,
-              ),
-              Text(
-                "Dzikir Petang",
-                style: TextStyle(fontSize: SizeConfig.s16),
-              ),
-              SizedBox(
-                height: SizeConfig.s18,
-              ),
-              MinusDividerWidget(
-                  left: SizeConfig.pagePaddingNum,
-                  right: SizeConfig.pagePaddingNum),
-              SizedBox(
-                height: SizeConfig.s18,
-              ),
-              Text(
-                "Kumpulan Doa dalam Al Quran",
-                style: TextStyle(fontSize: SizeConfig.s16),
-              ),
-              SizedBox(
-                height: SizeConfig.s18,
-              ),
-              MinusDividerWidget(
-                  left: SizeConfig.pagePaddingNum,
-                  right: SizeConfig.pagePaddingNum),
-            ],
-          ),
-        ),
+            ),
+          );
+        }),
       ],
     );
   }

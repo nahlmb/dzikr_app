@@ -13,9 +13,9 @@ class BookTool {
     plainData = await bookDataProvider.getAllBooks();
   }
 
-  static init() {
+  static Future<BookTool> init() async {
     var bookTool = BookTool._();
-    bookTool._getPlainData();
+    await bookTool._getPlainData();
     return bookTool;
   }
 }

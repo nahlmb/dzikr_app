@@ -24,6 +24,8 @@ class QuranPageShower extends StatelessWidget {
           // Start state
           QuranPageShowerState state =
               Provider.of<QuranPageShowerState>(context, listen: false);
+
+          // Setup
           state.init(context);
           state.getQuranPage();
 
@@ -32,58 +34,69 @@ class QuranPageShower extends StatelessWidget {
             return Scaffold(
               backgroundColor: config.backgroundColor,
               appBar: state.isShowToolbar ? appBar : null,
-              bottomNavigationBar: Visibility(
-                maintainState: true,
-                maintainAnimation: true,
-                maintainSize: false,
-                visible: state.isShowToolbar && config.isUsingBottomIndicator,
-                child: Container(
-                    color: config.primaryColor,
-                    child: SafeArea(
-                        child: SizedBox(
-                      height: 64,
-                      child: PageView(
-                          pageSnapping: true,
-                          reverse: true,
-                          onPageChanged: (page) {
-                            state.setActiveQuranPageViaIndicator(page);
-                          },
-                          controller: state.quranIndicatorPageController,
-                          children: [
-                            for (var pageIndex = 0; pageIndex < 10; pageIndex++)
-                              getPageMiniIndicatorItem(context,
-                                  pageNum: pageIndex + 1,
-                                  isActive:
-                                      pageIndex == state.activeQuranPageIndex)
-                          ]),
-                    ))),
-              ),
-              body: SafeArea(
-                  child: GestureDetector(
-                onTap: () {
-                  state.toogleIsShowToolbar();
-                },
-                child: Center(
-                  child: state.pages.isEmpty
-                      ? const Text('Loading Quran data ...')
-                      : PageView(
-                          controller: state.quranPageController,
-                          reverse: true,
-                          onPageChanged: (page) {
-                            state.setActiveQuranPageViaQuranPage(page);
-                          },
-                          children: [
-                            for (var pageIndex = 0;
-                                pageIndex < state.pages.length;
-                                pageIndex++)
-                              QuranPageWidget(
-                                page: state.pages[pageIndex],
-                                config: config,
-                              )
-                          ],
-                        ),
-                ),
-              )),
+              bottomNavigationBar: state.quranPageController == null ||
+                      state.quranIndicatorPageController == null
+                  ? null
+                  : Visibility(
+                      maintainState: true,
+                      maintainAnimation: true,
+                      maintainSize: false,
+                      visible:
+                          state.isShowToolbar && config.isUsingBottomIndicator,
+                      child: Container(
+                          color: config.primaryColor,
+                          child: SafeArea(
+                              child: SizedBox(
+                            height: 64,
+                            child: PageView(
+                                pageSnapping: true,
+                                reverse: true,
+                                onPageChanged: (page) {
+                                  state.setActiveQuranPageViaIndicator(page);
+                                },
+                                controller: state.quranIndicatorPageController,
+                                children: [
+                                  for (var pageIndex = 0;
+                                      pageIndex < 10;
+                                      pageIndex++)
+                                    getPageMiniIndicatorItem(context,
+                                        pageNum: pageIndex + 1,
+                                        isActive: pageIndex ==
+                                            state.activeQuranPageIndex)
+                                ]),
+                          ))),
+                    ),
+              body: state.quranPageController == null ||
+                      state.quranIndicatorPageController == null
+                  ? const Center(
+                      child: Text("Loading.."),
+                    )
+                  : SafeArea(
+                      child: GestureDetector(
+                      onTap: () {
+                        state.toogleIsShowToolbar();
+                      },
+                      child: Center(
+                        child: state.pages.isEmpty
+                            ? const Text('Loading Quran data ...')
+                            : PageView(
+                                controller: state.quranPageController,
+                                reverse: true,
+                                onPageChanged: (page) {
+                                  state.setActiveQuranPageViaQuranPage(page);
+                                },
+                                children: [
+                                  for (var pageIndex = 0;
+                                      pageIndex < state.pages.length;
+                                      pageIndex++)
+                                    QuranPageWidget(
+                                      page: state.pages[pageIndex],
+                                      config: config,
+                                    )
+                                ],
+                              ),
+                      ),
+                    )),
             );
           });
         });

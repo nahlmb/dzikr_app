@@ -1,6 +1,7 @@
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/config/theme_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
+import 'package:dzikr_app/package/dzikr/tools/quran_tool/quran_tool.dart';
 import 'package:dzikr_app/pages/dzikr_detail_page/dzikr_detail_page.dart';
 import 'package:dzikr_app/pages/home_page/home_state.dart';
 import 'package:dzikr_app/pages/prayer_page/prayer_page.dart';
@@ -241,10 +242,14 @@ class HomePage extends StatelessWidget {
                   style: textTheme(context)
                       .headline5
                       ?.copyWith(color: Colors.white)),
-              Text(
-                'Page 213',
-                style:
-                    textTheme(context).bodyText1?.copyWith(color: Colors.white),
+              FutureBuilder<int>(
+                future: QuranTool.getLastOpenedPageIndex(),
+                builder: (context, snapshot) => Text(
+                  'Page ${snapshot.data}',
+                  style: textTheme(context)
+                      .bodyText1
+                      ?.copyWith(color: Colors.white),
+                ),
               ),
               const SizedBox(
                 height: SizeConfig.s12,

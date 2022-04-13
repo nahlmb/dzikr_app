@@ -10,27 +10,34 @@ class QuranPageShowerState extends StateClass {
   bool isUsingPageMode = true;
   bool isShowToolbar = true;
 
+  // Tools
+  var quranTools = QuranTool();
+
   // Controller
-  late PageController quranPageController;
-  late PageController quranIndicatorPageController;
+  PageController? quranPageController;
+  PageController? quranIndicatorPageController;
 
   init(BuildContext context, {int? initialPage}) {
-    activeQuranPageIndex = initialPage ?? activeQuranPageIndex;
-    quranPageController = PageController(initialPage: activeQuranPageIndex);
-    quranIndicatorPageController = PageController(
-        viewportFraction: (0.45 / MediaQuery.of(context).size.width) * 100,
-        initialPage: activeQuranPageIndex);
+    QuranTool.getLastOpenedPageIndex().then((value) {
+      activeQuranPageIndex = value;
+      activeQuranPageIndex = initialPage ?? activeQuranPageIndex;
+      quranPageController = PageController(initialPage: activeQuranPageIndex);
+      quranIndicatorPageController = PageController(
+          viewportFraction: (0.45 / MediaQuery.of(context).size.width) * 100,
+          initialPage: activeQuranPageIndex);
+    });
   }
 
   setActiveQuranPageViaIndicator(int page) {
-    quranPageController.jumpToPage(page);
+    quranPageController!.jumpToPage(page);
     notifyListeners();
   }
 
   setActiveQuranPageViaQuranPage(int page) {
-    quranIndicatorPageController.animateToPage(page,
+    quranIndicatorPageController!.animateToPage(page,
         duration: const Duration(milliseconds: 250), curve: Curves.linear);
     activeQuranPageIndex = page;
+    QuranTool.setLastOpenedPageIndex(activeQuranPageIndex);
     notifyListeners();
   }
 
@@ -45,7 +52,6 @@ class QuranPageShowerState extends StateClass {
   }
 
   getQuranPage() async {
-    var quranTools = QuranTool();
     pages = await quranTools.getQuranPages();
     notifyListeners();
   }

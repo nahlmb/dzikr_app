@@ -2,17 +2,28 @@ import 'dart:convert';
 
 import 'package:dzikr_app/package/dzikr/core/class/dzikr_provider_class.dart';
 import 'package:dzikr_app/package/dzikr/core/config/dzikr_network_config.dart';
-import 'package:dzikr_app/package/dzikr/core/utils/quran_utils.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_chapter_model.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_model.dart';
 import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_result_model.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuranDataProvider extends DzikrProviderClass {
   QuranDataProvider({required this.assetPath})
       : super(networkConfig: DzikrNetworkConfig(baseUrl: ''));
 
   final String assetPath;
+  final String _lastOpenedPageIndexKey = "last-opened-quran-page-index";
+
+  Future<int> getLastOpenedPageIndex() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_lastOpenedPageIndexKey) ?? 1;
+  }
+
+  Future setLastOpenedPageIndex(int page) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt(_lastOpenedPageIndexKey, page);
+  }
 
   Future<QuranChapterModel> getSurahList() async {
     return QuranChapterModel.fromJson(await jsonDecode(

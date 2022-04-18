@@ -32,28 +32,13 @@ class QuranDataProvider extends DzikrProviderClass {
   }
 
   Future<List<QuranPageModel>> getCompleteQuranAsset() async {
-    return [
-      QuranPageModel.fromJson(
-          await jsonDecode(await rootBundle.loadString('$assetPath/1.json'))),
-      QuranPageModel.fromJson(
-          await jsonDecode(await rootBundle.loadString('$assetPath/2.json'))),
-      QuranPageModel.fromJson(
-          await jsonDecode(await rootBundle.loadString('$assetPath/3.json'))),
-      QuranPageModel.fromJson(
-          await jsonDecode(await rootBundle.loadString('$assetPath/4.json'))),
-      QuranPageModel.fromJson(
-          await jsonDecode(await rootBundle.loadString('$assetPath/5.json'))),
-      QuranPageModel.fromJson(
-          await jsonDecode(await rootBundle.loadString('$assetPath/6.json'))),
-      QuranPageModel.fromJson(
-          await jsonDecode(await rootBundle.loadString('$assetPath/7.json'))),
-      QuranPageModel.fromJson(
-          await jsonDecode(await rootBundle.loadString('$assetPath/8.json'))),
-      QuranPageModel.fromJson(
-          await jsonDecode(await rootBundle.loadString('$assetPath/9.json'))),
-      QuranPageModel.fromJson(
-          await jsonDecode(await rootBundle.loadString('$assetPath/10.json'))),
-    ];
+    List<QuranPageModel> list = [];
+
+    for (var i = 1; i <= 30; i++) {
+      list.add(QuranPageModel.fromJson(
+          await jsonDecode(await rootBundle.loadString('$assetPath/$i.json'))));
+    }
+    return list;
   }
 
   Future<List<QuranPageResultModel>> getCompleteResultQuranData() async {

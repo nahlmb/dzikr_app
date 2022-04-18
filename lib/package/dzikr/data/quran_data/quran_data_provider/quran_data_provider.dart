@@ -34,7 +34,7 @@ class QuranDataProvider extends DzikrProviderClass {
   Future<List<QuranPageModel>> getCompleteQuranAsset() async {
     List<QuranPageModel> list = [];
 
-    for (var i = 1; i <= 30; i++) {
+    for (var i = 1; i <= 100; i++) {
       list.add(QuranPageModel.fromJson(
           await jsonDecode(await rootBundle.loadString('$assetPath/$i.json'))));
     }
@@ -90,12 +90,25 @@ class QuranDataProvider extends DzikrProviderClass {
 
       for (var lineIndex = 0; lineIndex < lines.length; lineIndex++) {
         // check if begining of surah or not
+
         // exception
+        // Al Fatihah Exception
         if ((lineIndex != lines.length - 1) && pageNumber == 1) {
           // surah begining
           lines[lineIndex].isSurahBegining = true;
         }
+
         if (lines[lineIndex].words.isEmpty) {
+          // For surah with 14 lines, 1st lines basmalah
+          if (lineIndex == 0 &&
+              lines[lineIndex + 1].words.isNotEmpty &&
+              pageNumber != 1) {
+            lines[lineIndex].isBasmallah = true;
+            lines[lineIndex].isSurahBegining = false;
+            lines.insert(lineIndex,
+                QuranLineResultModel(words: [], isSurahBegining: true));
+          }
+
           if ((lineIndex != lines.length - 1) &&
               lines[lineIndex + 1].words.isEmpty) {
             // surah begining
@@ -120,7 +133,8 @@ class QuranDataProvider extends DzikrProviderClass {
 
         //check stretch
         if (lines[lineIndex].words.map((e) => e.qpcUthmaniHafs).join().length <
-            55) {
+                55 &&
+            lineIndex == (lines.length - 1)) {
           lines[lineIndex].isUsingLineStretch = false;
         }
         if (pageNumber == 1 || pageNumber == 2) {

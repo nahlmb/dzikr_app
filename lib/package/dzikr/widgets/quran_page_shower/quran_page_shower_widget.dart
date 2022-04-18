@@ -11,10 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class QuranPageShower extends StatelessWidget {
-  const QuranPageShower({Key? key, required this.config, this.appBar})
+  const QuranPageShower(
+      {Key? key, required this.config, this.appBar, this.onPageChange})
       : super(key: key);
   final QuranPageShowerConfig config;
   final PreferredSizeWidget? appBar;
+  final Function(int page)? onPageChange;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +85,7 @@ class QuranPageShower extends StatelessWidget {
                                 controller: state.quranPageController,
                                 reverse: true,
                                 onPageChanged: (page) {
+                                  if (onPageChange != null) onPageChange!(page);
                                   state.setActiveQuranPageViaQuranPage(page);
                                 },
                                 children: [

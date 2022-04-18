@@ -42,7 +42,9 @@ class HomePage extends StatelessWidget {
                     const PageStandartDividerWidget(),
                     Padding(
                       padding: SizeConfig.pageHorizontalPadding,
-                      child: getMenuSection(context),
+                      child: getMenuSection(context, (page) async {
+                        await state.setLastPageRead(page);
+                      }),
                     ),
                     getQuranSection(context),
                     const PageStandartDividerWidget(),
@@ -132,7 +134,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Column getMenuSection(BuildContext context) {
+  Column getMenuSection(BuildContext context, Function(int page) onPageChange) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -146,7 +148,9 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => QuranImplementationPage()));
+                        builder: (context) => QuranImplementationPage(
+                              listener: onPageChange,
+                            )));
               },
                   icon: Icon(
                     Icons.auto_stories_rounded,

@@ -20,8 +20,14 @@ class HomeState extends StateClass {
     getBooks();
   }
 
-  getLastPageRead() {
-    quranTool.getLastOpenedPageIndex().then((value) => lastPageRead = value);
+  getLastPageRead() async {
+    lastPageRead = await quranTool.getLastOpenedPageIndex() + 1;
+    notifyListeners();
+  }
+
+  setLastPageRead(int pageIndex) {
+    lastPageRead = pageIndex + 1;
+    notifyListeners();
   }
 
   getPrayerTime() async {

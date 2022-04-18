@@ -45,30 +45,31 @@ class PrayerTimeDataProvider extends DzikrProviderClass {
     var todayTimings = todayData.timings!;
 
     //change all prayer time to milliseconds
-    var fajr = format
+    int fajr = format
         .parse(todayTimings.fajr!.substring(0, 5))
         .millisecondsSinceEpoch
         .abs();
-    var dhuhr = format
+    int dhuhr = format
         .parse(todayTimings.dhuhr!.substring(0, 5))
         .millisecondsSinceEpoch
         .abs();
-    var asr = format
+    int asr = format
         .parse(todayTimings.asr!.substring(0, 5))
         .millisecondsSinceEpoch
         .abs();
-    var maghrib = format
+    int maghrib = format
         .parse(todayTimings.maghrib!.substring(0, 5))
         .millisecondsSinceEpoch
         .abs();
-    var isya = format
+    int isya = format
         .parse(todayTimings.isha!.substring(0, 5))
         .millisecondsSinceEpoch
         .abs();
 
     String closestPrayer = "";
-    String closestPrayerTime = "";
-    if (fajr < currentTime && dhuhr > currentTime) {
+    String closestPrayerTime = "0:00 (---)";
+
+    if (dhuhr > currentTime) {
       closestPrayer = "Dzuhur";
       closestPrayerTime = todayTimings.dhuhr!;
     } else if (dhuhr < currentTime && asr > currentTime) {

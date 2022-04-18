@@ -7,7 +7,8 @@ import 'package:dzikr_app/widgets/opacity_pressed_widget/opacity_pressed_widget.
 import 'package:flutter/material.dart';
 
 class QuranImplementationPage extends StatefulWidget {
-  const QuranImplementationPage({Key? key}) : super(key: key);
+  const QuranImplementationPage({Key? key, this.listener}) : super(key: key);
+  final Function(int pageChange)? listener;
 
   @override
   State<QuranImplementationPage> createState() =>
@@ -20,6 +21,9 @@ class _QuranImplementationPageState extends State<QuranImplementationPage> {
   @override
   Widget build(BuildContext context) {
     return QuranPageShower(
+      onPageChange: (page) {
+        if (widget.listener != null) widget.listener!(page);
+      },
       appBar: AppBarWidget.getAppbar(context,
           title: "AlQuran",
           backgroundColor: colorSchame(context).surface,

@@ -99,20 +99,16 @@ class PrayerTimeTool {
   Future<PrayerResponseModel> _getPrayerTime() async {
     var monthlySchedule =
         await _prayerTimeDataProvider.getMonthlyPrayerTime(_lat, _long);
-
     var todaySchedule = _prayerTimeDataProvider.getTodayPrayerTime(
         monthlySchedule: monthlySchedule);
-
     var detailedSchedule =
         _prayerTimeDataProvider.findClosestPrayerTime(todaySchedule);
-
     prayer = PrayerResponseModel(
         monthlySchedule: monthlySchedule,
         todaySchedule: detailedSchedule,
         placeLat: _lat,
         placeLong: _long,
         placeName: _place);
-
     return prayer;
   }
 

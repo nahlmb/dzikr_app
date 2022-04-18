@@ -59,7 +59,7 @@ class QuranPageShower extends StatelessWidget {
                                 controller: state.quranIndicatorPageController,
                                 children: [
                                   for (var pageIndex = 0;
-                                      pageIndex < 10;
+                                      pageIndex < state.pages.length;
                                       pageIndex++)
                                     getPageMiniIndicatorItem(context,
                                         pageNum: pageIndex + 1,

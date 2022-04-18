@@ -29,6 +29,8 @@ environment:
 dependencies:
   carousel_slider: ^4.0.0
   cupertino_icons: ^1.0.2
+  dzikr:
+    path: "/Users/nahlmunifbasalamah/Documents/Developer/Nahlmb Files/Learning/Small/dzikr"
   flutter:
     sdk: flutter
   geocoding: ^2.0.4

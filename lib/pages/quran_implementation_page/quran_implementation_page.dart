@@ -1,7 +1,7 @@
+import 'package:dzikr/data/quran_data/quran_data_model/quran_page_shower_config_model.dart';
+import 'package:dzikr/widgets/quran_page_shower/quran_page_shower_widget.dart';
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
-import 'package:dzikr_app/package/dzikr/data/quran_data/quran_data_model/quran_page_shower_config_model.dart';
-import 'package:dzikr_app/package/dzikr/widgets/quran_page_shower/quran_page_shower_widget.dart';
 import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
 import 'package:dzikr_app/widgets/opacity_pressed_widget/opacity_pressed_widget.dart';
 import 'package:flutter/material.dart';

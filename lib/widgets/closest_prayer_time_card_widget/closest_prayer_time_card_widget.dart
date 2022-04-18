@@ -1,7 +1,7 @@
+import 'package:dzikr/data/prayer_time_data/prayer_time_data_model/prayer_response_model.dart';
+import 'package:dzikr/tools/prayer_time_tool/prayer_time_tool.dart';
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
-import 'package:dzikr_app/package/dzikr/data/prayer_time_data/prayer_time_data_model/prayer_response_model.dart';
-import 'package:dzikr_app/package/dzikr/tools/prayer_time_tool/prayer_time_tool.dart';
 import 'package:dzikr_app/widgets/next_button_widget/next_button_widget.dart';
 import 'package:flutter/material.dart';
 

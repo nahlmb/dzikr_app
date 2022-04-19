@@ -6,16 +6,15 @@ import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
 import 'package:dzikr_app/widgets/opacity_pressed_widget/opacity_pressed_widget.dart';
 import 'package:flutter/material.dart';
 
-class QuranImplementationPage extends StatefulWidget {
-  const QuranImplementationPage({Key? key, this.listener}) : super(key: key);
+class QuranPage extends StatefulWidget {
+  const QuranPage({Key? key, this.listener}) : super(key: key);
   final Function(int pageChange)? listener;
 
   @override
-  State<QuranImplementationPage> createState() =>
-      _QuranImplementationPageState();
+  State<QuranPage> createState() => _QuranPageState();
 }
 
-class _QuranImplementationPageState extends State<QuranImplementationPage> {
+class _QuranPageState extends State<QuranPage> {
   String mode = QuranPageMode.page;
 
   @override

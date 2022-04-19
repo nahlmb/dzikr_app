@@ -4,7 +4,8 @@ import 'package:dzikr_app/core/utils/theme_utils.dart';
 import 'package:dzikr_app/pages/dzikr_detail_page/dzikr_detail_page.dart';
 import 'package:dzikr_app/pages/home_page/home_state.dart';
 import 'package:dzikr_app/pages/prayer_page/prayer_page.dart';
-import 'package:dzikr_app/pages/quran_implementation_page/quran_implementation_page.dart';
+import 'package:dzikr_app/pages/quran_menu_page/quran_menu_page.dart';
+import 'package:dzikr_app/pages/quran_page/quran_page.dart';
 import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
 import 'package:dzikr_app/widgets/button_widget/button_widget.dart';
 import 'package:dzikr_app/widgets/closest_prayer_time_card_widget/closest_prayer_time_card_widget.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatelessWidget {
         create: (context) => HomeState(),
         builder: (context, child) {
           HomeState state = Provider.of<HomeState>(context, listen: false);
+
           state.init();
           return Scaffold(
               appBar: AppBarWidget.getAppbar(context),
@@ -41,11 +43,13 @@ class HomePage extends StatelessWidget {
                     const PageStandartDividerWidget(),
                     Padding(
                       padding: SizeConfig.pageHorizontalPadding,
-                      child: getMenuSection(context, (page) async {
-                        await state.setLastPageRead(page);
-                      }),
+                      child: getMenuSection(
+                        context,
+                      ),
                     ),
-                    getQuranSection(context),
+                    getQuranSection(context, (page) async {
+                      await state.setLastPageRead(page);
+                    }),
                     const PageStandartDividerWidget(),
                     getDzikrAndDuaSection(context),
                     const SizedBox(
@@ -133,7 +137,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Column getMenuSection(BuildContext context, Function(int page) onPageChange) {
+  Column getMenuSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -144,12 +148,8 @@ class HomePage extends StatelessWidget {
           Expanded(
               flex: 2,
               child: getHeadlineIconItem(context, onPress: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => QuranImplementationPage(
-                              listener: onPageChange,
-                            )));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => QuranMenuPage()));
               },
                   icon: Icon(
                     Icons.auto_stories_rounded,
@@ -217,7 +217,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget getQuranSection(BuildContext context) {
+  Widget getQuranSection(
+      BuildContext context, Function(int page) onPageChange) {
     return Consumer<HomeState>(builder: (context, state, child) {
       return state.lastPageRead == 0
           ? const SizedBox()
@@ -260,7 +261,14 @@ class HomePage extends StatelessWidget {
                             ),
                             ButtonWidget(
                               text: "Continue read",
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => QuranPage(
+                                              listener: onPageChange,
+                                            )));
+                              },
                               isFull: true,
                               isSmall: true,
                               buttonTextStyle: textTheme(context)

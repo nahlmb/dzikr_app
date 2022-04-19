@@ -5,11 +5,16 @@ import 'package:flutter/material.dart';
 
 class NextButtonWidget extends StatelessWidget {
   const NextButtonWidget(
-      {Key? key, required this.onPress, this.iconColor, this.backgroundColor})
+      {Key? key,
+      required this.onPress,
+      this.iconColor,
+      this.backgroundColor,
+      this.isSmall = false})
       : super(key: key);
 
   final Function() onPress;
   final Color? iconColor, backgroundColor;
+  final bool isSmall;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class NextButtonWidget extends StatelessWidget {
             borderRadius: SizeConfig.radius),
         child: Icon(
           Icons.chevron_right_rounded,
-          size: SizeConfig.s30,
+          size: isSmall ? SizeConfig.s24 : SizeConfig.s30,
           color: iconColor,
         ),
       ),

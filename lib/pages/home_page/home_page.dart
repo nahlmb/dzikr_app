@@ -2,6 +2,7 @@ import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/config/theme_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
 import 'package:dzikr_app/pages/dzikr_detail_page/dzikr_detail_page.dart';
+import 'package:dzikr_app/pages/dzikr_page/dzikr_page.dart';
 import 'package:dzikr_app/pages/home_page/home_state.dart';
 import 'package:dzikr_app/pages/prayer_page/prayer_page.dart';
 import 'package:dzikr_app/pages/quran_menu_page/quran_menu_page.dart';
@@ -165,8 +166,10 @@ class HomePage extends StatelessWidget {
           ),
           Expanded(
               flex: 2,
-              child: getHeadlineIconItem(context,
-                  onPress: () {},
+              child: getHeadlineIconItem(context, onPress: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const DzikrPage()));
+              },
                   icon: Icon(
                     Icons.auto_awesome_rounded,
                     size: SizeConfig.s32,

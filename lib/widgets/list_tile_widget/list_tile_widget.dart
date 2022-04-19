@@ -4,8 +4,11 @@ import 'package:dzikr_app/widgets/opacity_pressed_widget/opacity_pressed_widget.
 import 'package:flutter/material.dart';
 
 class ListTileWidget extends StatelessWidget {
-  const ListTileWidget({Key? key, this.title, this.content}) : super(key: key);
+  const ListTileWidget(
+      {Key? key, required this.onClick, this.title, this.content})
+      : super(key: key);
 
+  final Function() onClick;
   final String? title;
   final Widget? content;
 
@@ -17,7 +20,9 @@ class ListTileWidget extends StatelessWidget {
           height: SizeConfig.s18,
         ),
         OpacityPressedWidget(
-          onPress: () {},
+          onPress: () {
+            onClick();
+          },
           child: Container(
             color: Colors.transparent,
             child: content ??

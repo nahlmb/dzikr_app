@@ -1,9 +1,5 @@
-import 'package:dzikr/data/prayer_time_data/prayer_time_data_model/prayer_response_model.dart';
-import 'package:dzikr/data/prayer_time_data/prayer_time_data_model/prayer_time_data_model.dart';
-import 'package:dzikr_app/core/config/size_config.dart';
-import 'package:dzikr_app/core/utils/theme_utils.dart';
+import 'package:dzikr/dzikr.dart';
 import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
-import 'package:dzikr_app/widgets/button_widget/button_widget.dart';
 import 'package:dzikr_app/widgets/closest_prayer_time_card_widget/closest_prayer_time_card_widget.dart';
 import 'package:dzikr_app/widgets/page_standart_divider_widget/page_standart_divider_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +9,7 @@ import 'package:intl/intl.dart';
 class PrayerPage extends StatelessWidget {
   const PrayerPage({Key? key, required this.data}) : super(key: key);
 
-  final PrayerResponseModel data;
+  final PrayerTime data;
 
   @override
   Widget build(BuildContext context) {
@@ -45,36 +41,31 @@ class PrayerPage extends StatelessWidget {
               getPrayerTile(context,
                   icon: Icons.flare_rounded,
                   prayer: "Fajr",
-                  isActive:
-                      data.todaySchedule.closestPrayerTime.closestPrayer ==
-                          "Dzuhur",
+                  isActive: data.todaySchedule.closestPrayer.closestPrayer ==
+                      "Dzuhur",
                   time: data.todaySchedule.fajr),
               getPrayerTile(context,
                   icon: Icons.light_mode_rounded,
                   isActive:
-                      data.todaySchedule.closestPrayerTime.closestPrayer ==
-                          "Ashar",
+                      data.todaySchedule.closestPrayer.closestPrayer == "Ashar",
                   prayer: "Dzuhur",
                   time: data.todaySchedule.dzhur),
               getPrayerTile(context,
                   icon: Icons.wb_sunny_rounded,
-                  isActive:
-                      data.todaySchedule.closestPrayerTime.closestPrayer ==
-                          "Maghrib",
+                  isActive: data.todaySchedule.closestPrayer.closestPrayer ==
+                      "Maghrib",
                   prayer: "Ashr",
                   time: data.todaySchedule.ashar),
               getPrayerTile(context,
                   icon: Icons.brightness_4_rounded,
                   isActive:
-                      data.todaySchedule.closestPrayerTime.closestPrayer ==
-                          "Isya",
+                      data.todaySchedule.closestPrayer.closestPrayer == "Isya",
                   prayer: "Maghrib",
                   time: data.todaySchedule.maghrib),
               getPrayerTile(context,
                   icon: Icons.dark_mode_rounded,
                   isActive:
-                      data.todaySchedule.closestPrayerTime.closestPrayer ==
-                          "Fajr",
+                      data.todaySchedule.closestPrayer.closestPrayer == "Fajr",
                   prayer: "Isya",
                   time: data.todaySchedule.isya),
               // ButtonWidget(

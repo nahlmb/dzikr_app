@@ -1,9 +1,5 @@
-import 'package:dzikr/data/quran_data/quran_data_model/quran_page_shower_config_model.dart';
-import 'package:dzikr/widgets/quran_page_shower/quran_page_shower_widget.dart';
-import 'package:dzikr_app/core/config/size_config.dart';
-import 'package:dzikr_app/core/utils/theme_utils.dart';
+import 'package:dzikr/dzikr.dart';
 import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
-import 'package:dzikr_app/widgets/opacity_pressed_widget/opacity_pressed_widget.dart';
 import 'package:flutter/material.dart';
 
 class QuranPage extends StatefulWidget {
@@ -21,7 +17,7 @@ class _QuranPageState extends State<QuranPage> {
 
   @override
   Widget build(BuildContext context) {
-    return QuranPageShower(
+    return QuranPageReader(
       initialPage: widget.initialPage,
       onPageChange: (page) {
         if (widget.listener != null) widget.listener!(page);
@@ -49,7 +45,7 @@ class _QuranPageState extends State<QuranPage> {
                     ),
             )
           ]),
-      config: QuranPageShowerConfig(
+      config: QuranPageReaderConfig(
           primaryColor: colorSchame(context).surface,
           onPrimaryColor: colorSchame(context).onSurface,
           accentColor: colorSchame(context).primary,

@@ -1,5 +1,4 @@
-import 'package:dzikr/data/book_data/book_data_model/book_data_model.dart';
-import 'package:dzikr/widgets/dzikr_reader_widget/dzikr_reader_widget.dart';
+import 'package:dzikr/dzikr.dart';
 import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
 import 'package:flutter/material.dart';
 

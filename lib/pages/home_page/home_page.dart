@@ -199,19 +199,26 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Expanded(
-              flex: 2,
-              child: getHeadlineIconItem(context, onPress: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PrayerPage()));
+            flex: 2,
+            child: Consumer<HomeState>(builder: ((context, state, child) {
+              return getHeadlineIconItem(context, onPress: () {
+                if (state.prayer != null) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PrayerPage(
+                                data: state.prayer!,
+                              )));
+                }
               },
                   icon: Icon(
                     Icons.schedule_rounded,
                     size: SizeConfig.s32,
                     color: ThemeConfig.sweetRed,
                   ),
-                  text: "Prayer")),
+                  text: "Prayer");
+            })),
+          ),
           const SizedBox(
             width: SizeConfig.s4,
           ),
@@ -292,6 +299,7 @@ class HomePage extends StatelessWidget {
   Widget getPrayerCardSection(BuildContext context) {
     return Consumer<HomeState>(builder: ((context, state, child) {
       return ClosestPrayerCard(
+        pureMode: false,
         prayer: state.prayer,
       );
     }));

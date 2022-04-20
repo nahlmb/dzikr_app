@@ -1,12 +1,19 @@
+import 'package:dzikr/data/prayer_time_data/prayer_time_data_model/prayer_response_model.dart';
+import 'package:dzikr/data/prayer_time_data/prayer_time_data_model/prayer_time_data_model.dart';
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
 import 'package:dzikr_app/widgets/appbar_widget/appbar_widget.dart';
 import 'package:dzikr_app/widgets/button_widget/button_widget.dart';
+import 'package:dzikr_app/widgets/closest_prayer_time_card_widget/closest_prayer_time_card_widget.dart';
 import 'package:dzikr_app/widgets/page_standart_divider_widget/page_standart_divider_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:hijri/hijri_calendar.dart';
+import 'package:intl/intl.dart';
 
 class PrayerPage extends StatelessWidget {
-  const PrayerPage({Key? key}) : super(key: key);
+  const PrayerPage({Key? key, required this.data}) : super(key: key);
+
+  final PrayerResponseModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -21,77 +28,49 @@ class PrayerPage extends StatelessWidget {
                 height: SizeConfig.pagePaddingDivider,
               ),
               Text(
-                "12 Sya'ban 1443",
+                HijriCalendar.now().toFormat('dd MMMM yyyy'),
                 style: textTheme(context).headline3,
               ),
-              const Text(
-                "23 Maret 2022",
-                style: TextStyle(fontSize: SizeConfig.s16),
+              Text(
+                DateFormat("dd MMM yyyy").format(DateTime.now()),
+                style: const TextStyle(fontSize: SizeConfig.s16),
               ),
               const SizedBox(
                 height: SizeConfig.pagePaddingDivider,
               ),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(SizeConfig.s20),
-                decoration: BoxDecoration(
-                    color: const Color(0xffC9E8FF),
-                    borderRadius: SizeConfig.radius),
-                child: Column(
-                  children: [
-                    Text("Dzhur",
-                        style: textTheme(context)
-                            .headline1
-                            ?.copyWith(color: Colors.black)),
-                    Text("12:00",
-                        style: textTheme(context).headline1?.copyWith(
-                            fontSize: SizeConfig.s42,
-                            height: 1,
-                            color: Colors.black)),
-                    const SizedBox(
-                      height: SizeConfig.s4,
-                    ),
-                    Text(
-                      '3 Minutes to Dzhur',
-                      style: textTheme(context)
-                          .bodyText1
-                          ?.copyWith(color: Colors.black),
-                    )
-                  ],
-                ),
-              ),
+              ClosestPrayerCard(prayer: data),
               const SizedBox(
                 height: SizeConfig.pagePaddingDivider * 1.5,
               ),
               getPrayerTile(context,
                   icon: Icons.flare_rounded,
                   prayer: "Fajr",
-                  time: "4:40 (WIB)"),
+                  time: data.todaySchedule.fajr),
               getPrayerTile(context,
                   icon: Icons.light_mode_rounded,
                   prayer: "Dzuhur",
-                  time: "4:40 (WIB)"),
+                  time: data.todaySchedule.dzhur),
               getPrayerTile(context,
                   icon: Icons.wb_sunny_rounded,
                   prayer: "Ashr",
-                  time: "4:40 (WIB)"),
+                  time: data.todaySchedule.ashar),
               getPrayerTile(context,
                   icon: Icons.brightness_4_rounded,
                   prayer: "Maghrib",
-                  time: "4:40 (WIB)"),
+                  time: data.todaySchedule.maghrib),
               getPrayerTile(context,
                   icon: Icons.dark_mode_rounded,
                   prayer: "Isya",
-                  time: "4:40 (WIB)"),
-              ButtonWidget(
-                text: "Lihat jadwal bulan ini",
-                onTap: () {},
-                isFull: true,
-                backgroundColor: colorSchame(context).primary,
-              ),
-              const SizedBox(
-                height: SizeConfig.pagePaddingDivider * 2,
-              ),
+                  time: data.todaySchedule.isya),
+              // ButtonWidget(
+              //   text: "Lihat jadwal bulan ini",
+              //   onTap: () {},
+              //   isFull: true,
+              //   backgroundColor: colorSchame(context).primary,
+              // ),
+              // const SizedBox(
+              //   height: SizeConfig.pagePaddingDivider * 2,
+              // ),
             ],
           ),
         ],

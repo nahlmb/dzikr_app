@@ -11,5 +11,6 @@ class DzikrState extends StateClass {
   init() async {
     duaBook = await bookTool.getDuaBook();
     dzikrBook = await bookTool.getDzikrBook();
+    notifyListeners();
   }
 }

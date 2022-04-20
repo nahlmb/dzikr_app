@@ -30,12 +30,14 @@ dependencies:
   carousel_slider: ^4.0.0
   cupertino_icons: ^1.0.2
   dzikr:
-    path: "/Users/nahlmunifbasalamah/Documents/Developer/Nahlmb Files/Learning/Small/dzikr"
+    path: /Users/nahlmunifbasalamah/Documents/Developer/Nahlmb
+      Files/Learning/Small/dzikr
   flutter:
     sdk: flutter
   geocoding: ^2.0.4
   geolocator: ^8.2.0
   google_fonts: ^2.3.1
+  hijri: ^3.0.0
   http: ^0.13.4
   intl: ^0.17.0
   location: ^4.3.0

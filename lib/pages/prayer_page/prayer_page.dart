@@ -45,21 +45,36 @@ class PrayerPage extends StatelessWidget {
               getPrayerTile(context,
                   icon: Icons.flare_rounded,
                   prayer: "Fajr",
+                  isActive:
+                      data.todaySchedule.closestPrayerTime.closestPrayer ==
+                          "Dzuhur",
                   time: data.todaySchedule.fajr),
               getPrayerTile(context,
                   icon: Icons.light_mode_rounded,
+                  isActive:
+                      data.todaySchedule.closestPrayerTime.closestPrayer ==
+                          "Ashar",
                   prayer: "Dzuhur",
                   time: data.todaySchedule.dzhur),
               getPrayerTile(context,
                   icon: Icons.wb_sunny_rounded,
+                  isActive:
+                      data.todaySchedule.closestPrayerTime.closestPrayer ==
+                          "Maghrib",
                   prayer: "Ashr",
                   time: data.todaySchedule.ashar),
               getPrayerTile(context,
                   icon: Icons.brightness_4_rounded,
+                  isActive:
+                      data.todaySchedule.closestPrayerTime.closestPrayer ==
+                          "Isya",
                   prayer: "Maghrib",
                   time: data.todaySchedule.maghrib),
               getPrayerTile(context,
                   icon: Icons.dark_mode_rounded,
+                  isActive:
+                      data.todaySchedule.closestPrayerTime.closestPrayer ==
+                          "Fajr",
                   prayer: "Isya",
                   time: data.todaySchedule.isya),
               // ButtonWidget(
@@ -79,7 +94,10 @@ class PrayerPage extends StatelessWidget {
   }
 
   Column getPrayerTile(BuildContext context,
-      {required IconData icon, required String prayer, required String time}) {
+      {required IconData icon,
+      required String prayer,
+      required String time,
+      bool isActive = false}) {
     return Column(
       children: [
         Row(
@@ -87,7 +105,10 @@ class PrayerPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(icon),
+                Icon(
+                  icon,
+                  color: isActive ? colorSchame(context).primary : null,
+                ),
                 const SizedBox(
                   width: SizeConfig.s12,
                 ),

@@ -2,6 +2,7 @@ import 'package:dzikr/data/prayer_time_data/prayer_time_data_model/prayer_respon
 import 'package:dzikr/tools/prayer_time_tool/prayer_time_tool.dart';
 import 'package:dzikr_app/core/config/size_config.dart';
 import 'package:dzikr_app/core/utils/theme_utils.dart';
+import 'package:dzikr_app/pages/prayer_page/prayer_page.dart';
 import 'package:dzikr_app/widgets/next_button_widget/next_button_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,16 @@ class ClosestPrayerCard extends StatelessWidget {
           pureMode
               ? const SizedBox()
               : NextButtonWidget(
-                  onPress: () {},
+                  onPress: () {
+                    if (prayer != null) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PrayerPage(
+                                    data: prayer!,
+                                  )));
+                    }
+                  },
                   iconColor: Colors.black,
                 )
         ],
